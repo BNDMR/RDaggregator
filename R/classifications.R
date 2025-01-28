@@ -261,9 +261,10 @@ get_ancestors = function(orpha_codes, output=c('codes_only', 'edgelist', 'graph'
   # Check if the codes belong to the given classification
   belonging = sapply(orpha_codes, is_in_classif, df_classif)
   if(any(!belonging)){
-    missing_codes = paste0(orpha_codes[!belonging], collapse=', ')
+    missing_codes = orpha_codes[!belonging]
+    missing_codes_str = paste0(missing_codes, collapse=', ')
     warning(sprintf('The following ORPHAcodes do not belong to the classification : %s.', missing_codes))
-    return(NULL)
+    orpha_codes = setdiff(orpha_codes, missing_codes)
   }
 
   # Find all paths from the given ORPHAcode and extract elements
@@ -314,9 +315,10 @@ get_descendants = function(orpha_codes, output=c('codes_only', 'edgelist', 'grap
   # Check if the codes belong to the given classification
   belonging = sapply(orpha_codes, is_in_classif, df_classif)
   if(any(!belonging)){
-    missing_codes = paste0(orpha_codes[!belonging], collapse=', ')
+    missing_codes = orpha_codes[!belonging]
+    missing_codes_str = paste0(missing_codes, collapse=', ')
     warning(sprintf('The following ORPHAcodes do not belong to the classification : %s.', missing_codes))
-    return(NULL)
+    orpha_codes = setdiff(orpha_codes, missing_codes)
   }
 
   graph_classif = graph_from_data_frame(df_classif)
