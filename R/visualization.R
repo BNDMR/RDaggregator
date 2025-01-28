@@ -359,7 +359,6 @@ interactive_plot = function(graph, layout_tree = FALSE)
 #' ORPHAcodes may appear in multiple rows because they can be child of several parents.
 #'
 #' @param df An [orpha_df()] instantiation.
-#' @param df_classif The classification data to consider. If NULL, find all classifications containing the given ORPHAcode.
 #' @param indented_cols The columns that need to be shifted.
 #' @param prefix The prefix of the indented columns. Default is `"indent"`.
 #'
@@ -379,12 +378,13 @@ interactive_plot = function(graph, layout_tree = FALSE)
 #' df = orpha_df(data.frame(orpha_code=orpha_codes), orpha_code_col='orpha_code') %>%
 #'   left_join(load_nomenclature(), by='orpha_code')
 #' df_indented = apply_orpha_indent(df, indented_cols='label')
-apply_orpha_indent = function(df, df_classif=NULL, indented_cols=NULL, prefix='indent')
+apply_orpha_indent = function(df, indented_cols=NULL, prefix='indent')
 {
   if(!'orpha_df' %in% class(df))
     stop(simpleError('`apply_orpha_indent` needs an `orpha_df` instantiation to work.'))
   code_col = attr(df, 'orpha_code_col')
 
+  df_classif = attr(df, 'df_classif')
   if(is.null(df_classif))
     df_classif = load_classifications() %>% bind_rows() %>% distinct()
 
