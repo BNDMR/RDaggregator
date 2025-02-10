@@ -4,17 +4,10 @@
 \alias{apply_orpha_indent}
 \title{Indentation}
 \usage{
-apply_orpha_indent(
-  df,
-  df_classif = NULL,
-  indented_cols = NULL,
-  prefix = "indent"
-)
+apply_orpha_indent(df, indented_cols = NULL, prefix = "indent")
 }
 \arguments{
 \item{df}{An \code{\link[=orpha_df]{orpha_df()}} instantiation.}
-
-\item{df_classif}{The classification data to consider. If NULL, find all classifications containing the given ORPHAcode.}
 
 \item{indented_cols}{The columns that need to be shifted.}
 

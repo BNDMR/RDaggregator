@@ -192,14 +192,15 @@ get_parents = function(orpha_code, output=c('codes_only', 'edgelist', 'graph'), 
   parents = df_parents %>% pull(from) %>% unique()
 
   # Return results in the specified format
-  if(length(parents) == 0)
-    return(NULL)
-  if(output == 'codes_only')
-    return(parents)
-  else if(output == 'edgelist')
+  if(output == 'edgelist')
     return(df_parents)
   else if(output == 'graph')
     return(graph_from_data_frame(df_parents))
+  else if(output == 'codes_only')
+    if(length(parents) == 0)
+      return(NULL)
+    else
+      return(parents)
   else{
     warning('No valid output format was given. `output` value should be in `c("codes_only", "edgelist", "graph")`')
     return(NULL)
@@ -227,14 +228,15 @@ get_children = function(orpha_code, output=c('codes_only', 'edgelist', 'graph'),
   children = df_children %>% pull(to) %>% unique()
 
   # Return results in the specified format
-  if(length(children) == 0)
-    return(NULL)
-  if(output == 'codes_only')
-    return(children)
-  else if(output == 'edgelist')
+  if(output == 'edgelist')
     return(df_children)
   else if(output == 'graph')
     return(graph_from_data_frame(df_children))
+  else if(output == 'codes_only')
+    if(length(children) == 0)
+      return(NULL)
+    else
+      return(children)
   else{
     warning('No valid output format was given. `output` value should be in `c("codes_only", "edgelist", "graph")`')
     return(NULL)
@@ -286,14 +288,15 @@ get_ancestors = function(orpha_codes, output=c('codes_only', 'edgelist', 'graph'
   graph_ancestors = induced_subgraph(graph_classif, unique(c(orpha_codes, ancestors)))
 
   # Return results in the specified format
-  if(length(ancestors) == 0)
-    return(NULL)
-  else if(output=='codes_only')
-    return(ancestors)
+  if(output=='graph')
+    return(graph_ancestors)
   else if(output=='edgelist')
     return(as_data_frame(graph_ancestors, what = 'edges'))
-  else if(output=='graph')
-    return(graph_ancestors)
+  else if(output=='codes_only')
+    if(length(ancestors) == 0)
+      return(NULL)
+    else
+      return(ancestors)
   else
     return(NULL)
 }
@@ -350,14 +353,15 @@ get_descendants = function(orpha_codes, output=c('codes_only', 'edgelist', 'grap
   graph_descendants = induced_subgraph(graph_classif, unique(c(orpha_codes, descendants)))
 
   # Return results in the specified format
-  if(length(descendants) == 0)
-    return(NULL)
-  if(output == 'codes_only')
-    return(descendants)
+  if(output == 'graph')
+    return(graph_descendants)
   else if(output == 'edgelist')
     return(as_data_frame(graph_descendants, what='edges'))
-  else if(output == 'graph')
-    return(graph_descendants)
+  else if(output == 'codes_only')
+    if(length(descendants) == 0)
+      return(NULL)
+    else
+      return(descendants)
   else
     return(NULL)
 }
@@ -379,14 +383,16 @@ get_siblings = function(orpha_code, output=c('codes_only', 'edgelist', 'graph'),
   siblings = setdiff(unique(df_siblings$to), orpha_code)
 
   # Return results in the specified format
-  if(length(siblings) == 0)
-    return(NULL)
-  if(output == 'codes_only')
-    return(siblings)
-  else if(output == 'edgelist')
+  if(output == 'edgelist')
     return(df_siblings)
   else if(output == 'graph')
     return(graph_from_data_frame(df_siblings))
+  else if(output == 'codes_only'){
+    if(length(siblings) == 0)
+      return(NULL)
+    else
+      return(siblings)
+  }
   else{
     warning('No valid output format was given. `output` value should be in `c("codes_only", "edgelist", "graph")`')
     return(NULL)
