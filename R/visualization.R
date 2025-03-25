@@ -457,7 +457,7 @@ assign_indent_index = function(df, current_code = NULL, current_index = '')
 
 path2edges = function(path){
   if(length(path)<2)
-    return(NULL)
+    return(data.frame(from=character(), to=character()))
   df_edges = data.frame(
     from = path[1:(length(path)-1)],
     to = path[2:length(path)])
@@ -465,7 +465,7 @@ path2edges = function(path){
 }
 
 
-#' Minmize a graph
+#' Minimize a graph
 #'
 #' @description
 #' Similar to an induced subgraph, but creates shortcut edges between vertices
@@ -510,13 +510,17 @@ minimize_graph = function(graph, vs){
 
   # Remove redundant edges
   tmp_graph = graph_from_data_frame(df_edges)
-  df_edges = df_edges %>%
-    rowwise() %>%
-    mutate(to_rem = length(all_simple_paths(tmp_graph, from, to)) > 1) %>%
-    ungroup() %>%
-    filter(!to_rem)
 
-  new_graph = graph_from_data_frame(df_edges)
+  if(nrow(df_edges))
+    df_edges = df_edges %>%
+      rowwise() %>%
+      mutate(to_rem = length(all_simple_paths(tmp_graph, from, to)) > 1) %>%
+      ungroup() %>%
+      filter(!to_rem)
+
+  missing_vs = setdiff(vs, names(V(tmp_graph)))
+
+  new_graph = graph_from_data_frame(df_edges) %>% add_vertices(length(missing_vs), name=missing_vs)
 
   return(new_graph)
 }
