@@ -1,10 +1,10 @@
 Package: RDaggregator
-Title: RDaggregator
+Title: Data package for rare diseases in R
 Version: 1.0.0
 Authors@R: 
-    person("Remy", "Dumas", , "remy.dumas@aphp.fr", role = c("aut", "cre", "cph"),
+    person("Remy", "Dumas", , "remy.dumas84@gmail.com", role = c("aut", "cre", "cph"),
            comment = c(ORCID = "0009-0005-8919-9857"))
-Description: Data package to analyse rare diseases in R
+Description: Routines to better comprehend and analyze data using the Orphanet system. It particularly helps aggregating on multiple levels at the same time
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2

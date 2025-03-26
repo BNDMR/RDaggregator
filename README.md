@@ -10,12 +10,12 @@
 coverage](https://codecov.io/gh/BNDMR/RDaggregator/graph/badge.svg)](https://app.codecov.io/gh/BNDMR/RDaggregator)
 <!-- badges: end -->
 
-The goal of RDaggregator is to …
+<!-- The goal of RDaggregator is to ... -->
 
 ## Installation
 
 You can install the development version of RDaggregator like so:
 
 ``` r
-# FILL THIS IN! HOW CAN PEOPLE INSTALL YOUR DEV PACKAGE?
+install_github('BNDMR/RDaggregator')
 ```
