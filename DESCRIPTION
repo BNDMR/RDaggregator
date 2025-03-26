@@ -1,6 +1,6 @@
 Package: RDaggregator
 Title: Tools to deal with the Orpha classifications
-Version: 0.1.0.9010
+Version: 1.0.0
 Authors@R: 
     person("Remy", "Dumas", , "remy.dumas@aphp.fr", role = c("aut", "cre"),
            comment = c(ORCID = "YOUR-ORCID-ID"))
