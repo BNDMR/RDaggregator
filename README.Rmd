@@ -18,6 +18,7 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/Thorry13/RDaggregator/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Thorry13/RDaggregator/actions/workflows/R-CMD-check.yaml)
 [![Codecov test coverage](https://codecov.io/gh/Thorry13/RDaggregator/graph/badge.svg)](https://app.codecov.io/gh/Thorry13/RDaggregator)
+[![Codecov test coverage](https://codecov.io/gh/BNDMR/RDaggregator/graph/badge.svg)](https://app.codecov.io/gh/BNDMR/RDaggregator)
 <!-- badges: end -->
 
 The goal of RDaggregator is to ...
