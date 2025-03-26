@@ -9,15 +9,15 @@
 #' to genes in a different way.
 #'
 #' @details
-#' The loaded dataframes directly depend on the `"orphatools_gene_file"` option that
-#' you can set via the [orphatools_options()] interface. You can add an available option
+#' The loaded dataframes directly depend on the `"RDaggregator_gene_file"` option that
+#' you can set via the [RDaggregator_options()] interface. You can add an available option
 #' with [add_associated_genes()].
 #'
 #' @return A data frame containing for each ORPHAcode the kind of association (if any).
 #' with a related gene and all known information (symbol, name, references, locus) about the latter.
 #'
 #' @export
-#' @seealso [orphatools_options()], [add_associated_genes()], [specify_code()]
+#' @seealso [RDaggregator_options()], [add_associated_genes()], [specify_code()]
 #'
 #' @examples
 #' df_associated_genes = load_associated_genes()
@@ -28,7 +28,7 @@
 #' @rdname load-genes
 #' @export
 load_associated_genes = function(){
-  v = getOption('orphatools_gene_file', default_genes_version())
+  v = getOption('RDaggregator_gene_file', default_genes_version())
   gene_file_path = get_genes_versions() %>% filter(version==v) %>% pull(location)
 
   #internal genes_data is silently loaded
@@ -37,7 +37,7 @@ load_associated_genes = function(){
   else if(gene_file_path != 'internal')
     stop(simpleError(
     'Loading of genes associations failed. Internal files might be broken.
-    See `orphatools_options`, `add_associated_genes` or consider reisntalling orphatools package.'))
+    See `RDaggregator_options`, `add_associated_genes` or consider reinstalling RDaggregator package.'))
 
   return(genes_data$associations)
 }
@@ -46,7 +46,7 @@ load_associated_genes = function(){
 #' @rdname load-genes
 #' @export
 load_genes_synonyms = function(){
-  v = getOption('orphatools_gene_file', default_genes_version())
+  v = getOption('RDaggregator_gene_file', default_genes_version())
   gene_file_path = get_genes_versions() %>% filter(version==v) %>% pull(location)
 
   if(file.exists(gene_file_path))
@@ -54,7 +54,7 @@ load_genes_synonyms = function(){
   else if(gene_file_path != 'internal')
     stop(simpleError(
     'Loading of genes associations failed. Internal files might be broken.
-    See `orphatools_options`, `add_associated_genes` or consider reisntalling orphatools package.'))
+    See `RDaggregator_options`, `add_associated_genes` or consider reinstalling RDaggregator package.'))
 
   return(genes_data$synonyms)
 }

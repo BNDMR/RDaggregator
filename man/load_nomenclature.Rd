@@ -18,7 +18,7 @@ Load all ORPHAcodes properties in a combined data.frame.
 \details{
 The label is the clinical entity name and is returned in the \code{label} column.
 If the displayed language does not meet your needs,
-you should consider changing options via \code{\link[=orphatools_options]{orphatools_options()}} or adding a new nomenclature pack using \code{\link[=add_nomenclature_pack]{add_nomenclature_pack()}}.
+you should consider changing options via \code{\link[=RDaggregator_options]{RDaggregator_options()}} or adding a new nomenclature pack using \code{\link[=add_nomenclature_pack]{add_nomenclature_pack()}}.
 
 The classification level is the clinical entity name and is returned in the \code{level} column.
 Classification level can either be a group of disorders, a disorder or a subtype of disorder.

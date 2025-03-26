@@ -11,7 +11,7 @@ copy_dict_template(dest_path = ".")
 add_dictionary(
   filepath,
   default = FALSE,
-  destdir = tools::R_user_dir("orphatools", "data")
+  destdir = tools::R_user_dir("RDaggregator", "data")
 )
 }
 \arguments{
@@ -31,9 +31,9 @@ A dictionary is used to interprete Orphanet concepts, given as ids.
 Copy the dictionary template then add it to the package after modification.
 
 Once added, the dictionary will appear among the available options
-through the \code{\link[=orphatools_options]{orphatools_options()}} interface. It can also be manually set using the built-in
+through the \code{\link[=RDaggregator_options]{RDaggregator_options()}} interface. It can also be manually set using the built-in
 \code{\link[=options]{options()}} function and the \code{"nomenclature_version"} name.
 }
 \seealso{
-\code{\link[=orphatools_options]{orphatools_options()}}
+\code{\link[=RDaggregator_options]{RDaggregator_options()}}
 }

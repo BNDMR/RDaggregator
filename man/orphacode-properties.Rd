@@ -32,7 +32,7 @@ Get specific properties of given ORPHAcodes.
 The label is the clinical entity name and is returned by \code{get_label}.
 As multiple synonyms can be associated to a clinical entity, this function only returns the preferrential labels.
 To get all synonyms instead, use \code{get_synonyms}. Besides, if the displayed language does not meet your needs,
-you should consider changing options via \code{\link[=orphatools_options]{orphatools_options()}} or adding a new nomenclature pack using \code{\link[=add_nomenclature_pack]{add_nomenclature_pack()}}.
+you should consider changing options via \code{\link[=RDaggregator_options]{RDaggregator_options()}} or adding a new nomenclature pack using \code{\link[=add_nomenclature_pack]{add_nomenclature_pack()}}.
 
 The classification level is the clinical entity name and is returned by \code{get_classification_level}.
 Classification level can either be a group of disorders, a disorder or a subtype of disorder.

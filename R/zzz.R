@@ -2,7 +2,7 @@
   default_dict()
   default_pack_version()
   default_genes_version()
-  options(orphatools.connection = stdin())
+  options(RDaggregator.connection = stdin())
   invisible()
 }
 

@@ -4,8 +4,8 @@
 #' Load for each obsolete or deprecated ORPHAcode the corresponding association (*Moved to* or *Referred to*).
 #'
 #' While `load_raw_redirections` keep the original id values for each Orphanet concept,
-#' `load_redirections` translate them according to `"orphatools_dict"` option, which can be set manually using
-#' built-in [options()] function or through the [orphatools_options()] interface.
+#' `load_redirections` translate them according to `"RDaggregator_dict"` option, which can be set manually using
+#' built-in [options()] function or through the [RDaggregator_options()] interface.
 #'
 #' @return A data.frame object giving the deprecated or obsolete ORPHAcodes,
 #' the corresponding associations with the association type
@@ -24,7 +24,7 @@ load_redirections = function(){
 #' @rdname load_redirections
 #' @export
 load_raw_redirections = function(){
-  v = getOption('orphatools_nomenclature', default_pack_version())
+  v = getOption('RDaggregator_nomenclature', default_pack_version())
   nomenclature_path = get_pack_versions() %>% filter(version==v) %>% pull(location)
 
   #internal pack_data is silently loaded
@@ -33,7 +33,7 @@ load_raw_redirections = function(){
   else if(nomenclature_path != 'internal')
     stop(simpleError(
     'Loading of redirections failed. Internal files might be broken.
-    See `orphatools_options`, `add_nomenclature_pack` or consider reisntalling orphatools package.'))
+    See `RDaggregator_options`, `add_nomenclature_pack` or consider reisntalling RDaggregator package.'))
 
   return(pack_data$redirections)
 }

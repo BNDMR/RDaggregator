@@ -9,7 +9,7 @@ test_that("finds initial genes versions", {
 # Test adding new genes file
 test_that("adds a new genes associations file", {
   # Get existing versions
-  usr_dir = tools::R_user_dir('orphatools', 'config')
+  usr_dir = tools::R_user_dir('RDaggregator', 'config')
   versions_path = file.path(usr_dir, 'genes_versions.csv')
   if(file.exists(versions_path))
     file.remove(versions_path)

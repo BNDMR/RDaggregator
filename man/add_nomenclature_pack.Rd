@@ -2,13 +2,13 @@
 % Please edit documentation in R/data-pack.R
 \name{add_nomenclature_pack}
 \alias{add_nomenclature_pack}
-\title{Add a nomenclature pack to \code{orphatools}}
+\title{Add a nomenclature pack to \code{RDaggregator}}
 \usage{
 add_nomenclature_pack(
   zip_filepath,
   default = FALSE,
   force = FALSE,
-  destdir = tools::R_user_dir("orphatools", "data")
+  destdir = tools::R_user_dir("RDaggregator", "data")
 )
 }
 \arguments{
@@ -26,7 +26,7 @@ This function analyzes the nomenclature pack files and saves them internally in 
 \details{
 Orphanet publishes the nomenclature pack on a yearly basis, and is deployed in different language versions.
 The different nomenclature pack versions are available \href{https://www.orphadata.com/pack-nomenclature/}{here}.
-They must be downloaded locally and uncompressed to be added to \code{orphatools}.
+They must be downloaded locally and uncompressed to be added to \code{RDaggregator}.
 
 The uncompressed Orphanet nomenclature pack contains a set of \emph{.xml} and \emph{.xlsx} files for coding, including the nomenclature file
 (e.g. \emph{ORPHAnomenclature_fr_2023.xml}) and a set of more than 30 classifications (usually contained in \emph{Classifications} folder).
@@ -40,11 +40,11 @@ Each classification contains numerous from/to relationships between clinical ent
 depicting the global Orphanet classification system.
 
 Once added, the nomenclature pack will appear among the available options
-through the \code{\link[=orphatools_options]{orphatools_options()}} interface. It can also be manually set using the built-in
+through the \code{\link[=RDaggregator_options]{RDaggregator_options()}} interface. It can also be manually set using the built-in
 \code{\link[=options]{options()}} function and the \code{"nomenclature_version"} name.
 }
 \seealso{
-\code{\link[=orphatools_options]{orphatools_options()}} to switch from a pack to another,
+\code{\link[=RDaggregator_options]{RDaggregator_options()}} to switch from a pack to another,
 \code{\link[=load_nomenclature]{load_nomenclature()}}, \code{\link[=load_raw_nomenclature]{load_raw_nomenclature()}},
 \code{\link[=load_classifications]{load_classifications()}}, \code{\link[=load_synonyms]{load_synonyms()}}, \code{\link[=load_redirections]{load_redirections()}}
 to load the data added through this function.

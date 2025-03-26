@@ -1,4 +1,4 @@
 library(testthat)
-library(orphatools)
+library(RDaggregator)
 
-test_check("orphatools")
+test_check("RDaggregator")

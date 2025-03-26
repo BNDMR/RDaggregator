@@ -1,8 +1,8 @@
 get_dict_versions = function(){
-  usr_dir = tools::R_user_dir('orphatools', 'config')
+  usr_dir = tools::R_user_dir('RDaggregator', 'config')
   versions_filepath = file.path(usr_dir, 'dict_versions.csv')
   if(!file.exists(versions_filepath))
-    versions_filepath = system.file(package='orphatools', 'extdata', 'dict_versions.csv')
+    versions_filepath = system.file(package='RDaggregator', 'extdata', 'dict_versions.csv')
   df_versions = read.csv2(versions_filepath)
   return(df_versions)
 }
@@ -20,7 +20,7 @@ set_default_dict_version = function(version){
 }
 
 save_dict_versions = function(df_versions){
-  usr_dir = tools::R_user_dir('orphatools', 'config')
+  usr_dir = tools::R_user_dir('RDaggregator', 'config')
   if(!file.exists(usr_dir))
     dir.create(usr_dir, recursive = TRUE)
   filepath = file.path(usr_dir, 'dict_versions.csv')
@@ -28,7 +28,7 @@ save_dict_versions = function(df_versions){
 }
 
 save_dict = function(dict_data, version){
-  usr_dir = tools::R_user_dir('orphatools', 'data')
+  usr_dir = tools::R_user_dir('RDaggregator', 'data')
   dest_dir = file.path(usr_dir, 'dict_data')
   if(!file.exists(dest_dir))
     dir.create(dest_dir, recursive = TRUE)
@@ -47,7 +47,7 @@ save_dict = function(dict_data, version){
 #' Copy the dictionary template then add it to the package after modification.
 #'
 #' Once added, the dictionary will appear among the available options
-#' through the [orphatools_options()] interface. It can also be manually set using the built-in
+#' through the [RDaggregator_options()] interface. It can also be manually set using the built-in
 #' [options()] function and the `"nomenclature_version"` name.
 #'
 #'
@@ -56,9 +56,9 @@ save_dict = function(dict_data, version){
 #' @rdname add-dictionary
 #' @param dest_path The destination path where the dictionary template should be copied.
 #' @export
-#' @seealso [orphatools_options()]
+#' @seealso [RDaggregator_options()]
 copy_dict_template = function(dest_path='.'){
-  extdata_path = system.file('extdata', package='orphatools')
+  extdata_path = system.file('extdata', package='RDaggregator')
   file.copy(file.path(extdata_path, 'dict_template.csv'), dest_path)
 }
 
@@ -73,7 +73,7 @@ copy_dict_template = function(dest_path='.'){
 #' @export
 add_dictionary = function(filepath,
                           default=FALSE,
-                          destdir=tools::R_user_dir('orphatools', 'data')){
+                          destdir=tools::R_user_dir('RDaggregator', 'data')){
   # Read file
   if(!file.exists(filepath))
     stop(simpleError('The given file was not found.'))
@@ -97,7 +97,7 @@ add_dictionary = function(filepath,
 
   # Set as default
   if(default)
-    options('orphatools_dict'=version)
+    options('RDaggregator_dict'=version)
 
   message(sprintf('Dictionary (%s) was succesfully added.', version))
 

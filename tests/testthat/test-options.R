@@ -8,12 +8,12 @@ test_that("Load default versions", {
 })
 
 test_that("Change options", {
-  option_dict = getOption('orphatools_dict')
-  option_pack = getOption('orphatools_nomenclature')
-  option_genes = getOption('orphatools_gene_file')
+  option_dict = getOption('RDaggregator_dict')
+  option_pack = getOption('RDaggregator_nomenclature')
+  option_genes = getOption('RDaggregator_gene_file')
 
   f <- file()
-  options(orphatools.connection = f)
+  options(RDaggregator.connection = f)
   ans <- paste(c(
     "",
     "1", "",
@@ -32,27 +32,27 @@ test_that("Change options", {
     ), collapse = "\n") # set this to the number of tests you want to run
   write(ans, f)
 
-  expect_null(orphatools_options())
-  expect_null(orphatools_options())
-  expect_error(orphatools_options(), 'Invalid choice.')
-  expect_message(orphatools_options(), 'option was set')
+  expect_null(RDaggregator_options())
+  expect_null(RDaggregator_options())
+  expect_error(RDaggregator_options(), 'Invalid choice.')
+  expect_message(RDaggregator_options(), 'option was set')
 
-  expect_null(orphatools_options())
-  expect_error(orphatools_options(), 'Invalid choice.')
-  expect_message(orphatools_options(), 'option was set')
+  expect_null(RDaggregator_options())
+  expect_error(RDaggregator_options(), 'Invalid choice.')
+  expect_message(RDaggregator_options(), 'option was set')
 
-  expect_null(orphatools_options())
-  expect_error(orphatools_options(), 'Invalid choice.')
-  expect_message(orphatools_options(), 'option was set')
+  expect_null(RDaggregator_options())
+  expect_error(RDaggregator_options(), 'Invalid choice.')
+  expect_message(RDaggregator_options(), 'option was set')
 
-  expect_error(orphatools_options(), 'Invalid choice.')
+  expect_error(RDaggregator_options(), 'Invalid choice.')
 
   # reset options
   options(
-    orphatools_dict = option_dict,
-    orphatools_nomenclature = option_pack,
-    orphatools_gene_file = option_genes,
-    orphatools.connection = stdin()
+    RDaggregator_dict = option_dict,
+    RDaggregator_nomenclature = option_pack,
+    RDaggregator_gene_file = option_genes,
+    RDaggregator.connection = stdin()
     )
 
   # close the file

@@ -7,7 +7,7 @@ test_that("finds initial dictionaries versions", {
 
 test_that("add dictionary", {
   # Get existing versions
-  usr_dir = tools::R_user_dir('orphatools', 'config')
+  usr_dir = tools::R_user_dir('RDaggregator', 'config')
   versions_path = file.path(usr_dir, 'dict_versions.csv')
   if(file.exists(versions_path))
     file.remove(versions_path)

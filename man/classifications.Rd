@@ -37,8 +37,8 @@ A child is always more specific than its parent.
 \code{load_classifications}
 Mind using \code{bind_rows} followed by \code{distinct} to merge all classification.
 
-The classification system will change according to the chosen \code{"orphatools_nomenclature"}
-option, that you can set via the \code{\link[=orphatools_options]{orphatools_options()}} interface. Add a new available option
+The classification system will change according to the chosen \code{"RDaggregator_nomenclature"}
+option, that you can set via the \code{\link[=RDaggregator_options]{RDaggregator_options()}} interface. Add a new available option
 with \code{\link[=add_nomenclature_pack]{add_nomenclature_pack()}}.
 }
 \examples{
@@ -52,5 +52,5 @@ is_in_classif(303, all_classif[[6]])
 
 }
 \seealso{
-\code{\link[=add_nomenclature_pack]{add_nomenclature_pack()}}, \code{\link[=orphatools_options]{orphatools_options()}}
+\code{\link[=add_nomenclature_pack]{add_nomenclature_pack()}}, \code{\link[=RDaggregator_options]{RDaggregator_options()}}
 }

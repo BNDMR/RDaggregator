@@ -2,7 +2,7 @@
 % Please edit documentation in R/visualization.R
 \name{minimize_graph}
 \alias{minimize_graph}
-\title{Minmize a graph}
+\title{Minimize a graph}
 \usage{
 minimize_graph(graph, vs)
 }

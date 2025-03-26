@@ -6,7 +6,7 @@
 #' @details
 #' The label is the clinical entity name and is returned in the `label` column.
 #' If the displayed language does not meet your needs,
-#' you should consider changing options via [orphatools_options()] or adding a new nomenclature pack using [add_nomenclature_pack()].
+#' you should consider changing options via [RDaggregator_options()] or adding a new nomenclature pack using [add_nomenclature_pack()].
 #'
 #' The classification level is the clinical entity name and is returned in the `level` column.
 #' Classification level can either be a group of disorders, a disorder or a subtype of disorder.
@@ -25,7 +25,7 @@
 #' [load_synonyms()], [get_all_labels()], [load_redirections()], [load_redirections()] to access other pieces of information contained in the nomenclature file.
 #' @name load_nomenclature
 load_raw_nomenclature = function(){
-  v = getOption('orphatools_nomenclature', default_pack_version())
+  v = getOption('RDaggregator_nomenclature', default_pack_version())
   nomenclature_path = get_pack_versions() %>% filter(version==v) %>% pull(location)
 
   #internal pack_data is silently loaded
@@ -34,7 +34,7 @@ load_raw_nomenclature = function(){
   else if(nomenclature_path != 'internal')
     stop(simpleError(
     'Loading of nomenclature data failed. Internal files might be broken.
-    See `orphatools_options`, `add_nomenclature_pack` or consider reisntalling orphatools package.'))
+    See `RDaggregator_options`, `add_nomenclature_pack` or consider reisntalling RDaggregator package.'))
 
   return(pack_data$nomenclature)
 }
@@ -57,7 +57,7 @@ load_nomenclature = function(){
 #' The label is the clinical entity name and is returned by `get_label`.
 #' As multiple synonyms can be associated to a clinical entity, this function only returns the preferrential labels.
 #' To get all synonyms instead, use `get_synonyms`. Besides, if the displayed language does not meet your needs,
-#' you should consider changing options via [orphatools_options()] or adding a new nomenclature pack using [add_nomenclature_pack()].
+#' you should consider changing options via [RDaggregator_options()] or adding a new nomenclature pack using [add_nomenclature_pack()].
 #'
 #' The classification level is the clinical entity name and is returned by `get_classification_level`.
 #' Classification level can either be a group of disorders, a disorder or a subtype of disorder.
@@ -147,7 +147,7 @@ translate_orpha_concepts = function(X, cols=NULL){
   }
 
   # Load dict
-  dict = getOption('orphatools_dict', default_dict())
+  dict = getOption('RDaggregator_dict', default_dict())
   dict_path = get_dict_versions() %>% filter(version==dict) %>% pull(location)
 
   # df_dict is already lazy-loaded. To be updated only if option references external version.
@@ -156,7 +156,7 @@ translate_orpha_concepts = function(X, cols=NULL){
   else if(dict_path != 'internal')
     stop(simpleError(
     'Loading of dictionary failed. Internal files might be broken.
-    See `orphatools_options`, `add_dictionary` or consider reisntalling orphatools package.'))
+    See `RDaggregator_options`, `add_dictionary` or consider reisntalling RDaggregator package.'))
 
   if(is.data.frame(X) & is.null(cols))
     cols = intersect(names(X), unique(df_dict$id_family))

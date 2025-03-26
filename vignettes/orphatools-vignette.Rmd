@@ -1,11 +1,11 @@
 ---
-title: "orphatools (R interface)"
+title: "RDaggregator (R interface)"
 output: 
   rmarkdown::html_vignette:
     toc: true
     toc_depth: 4
 vignette: >
-  %\VignetteIndexEntry{orphatools-vignette}
+  %\VignetteIndexEntry{RDaggregator-vignette}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -23,7 +23,7 @@ suppressWarnings(suppressPackageStartupMessages(library(kableExtra)))
 suppressWarnings(suppressPackageStartupMessages(library(dplyr)))
 ```
 
-`orphatools` is an open-source library consisting in using [Orphanet](https://www.orpha.net/) resources
+`RDaggregator` is an open-source library consisting in using [Orphanet](https://www.orpha.net/) resources
 for efficient computations in R. This vignette provides all needed details for basic and advanced usage in R.
 
 ## Getting started
@@ -35,19 +35,19 @@ No available installation from CRAN yet.
 ```
 ---
 
-Then load `orphatools` package to use it in your R code:
+Then load `RDaggregator` package to use it in your R code:
 ```{r load_library}
-library(orphatools)
+library(RDaggregator)
 ```
 
 
 ### Check options
 As Orphanet publishes its data on a regular basis and in various language versions, you should first check if options are corrrectly set: 
 ```{r options, eval=F}
-orphatools_options()
+RDaggregator_options()
 ```
 
-In order to update Orphanet data in `orphatools`, you will need to add it via `add_nomenclature_pack` and `add_associated_genes`.
+In order to update Orphanet data in `RDaggregator`, you will need to add it via `add_nomenclature_pack` and `add_associated_genes`.
 
 ### Load data
 You can start handling Orphanet data by using available loading functions:
@@ -78,7 +78,7 @@ get_type(orpha_code)
 
 ## Operations on classification
 ### Analyze genealogy
-`orphatools` and `igraph` provide usefool functions to analyze the Orphanet classification system.
+`RDaggregator` and `igraph` provide usefool functions to analyze the Orphanet classification system.
 
 #### Parents, children, siblings
 ```{r direct_relationships}
@@ -192,7 +192,7 @@ graph = get_ancestors(orpha_code, output='graph')
 
 plot(graph)
 plot(graph, layout=igraph::layout_as_tree)
-plot(graph, layout=orphatools::layout_tree)
+plot(graph, layout=RDaggregator::layout_tree)
 ```
 
 For larger graphs, a static plot won't be enough to see the graph details.

@@ -17,8 +17,8 @@ the corresponding associations with the association type
 Load for each obsolete or deprecated ORPHAcode the corresponding association (\emph{Moved to} or \emph{Referred to}).
 
 While \code{load_raw_redirections} keep the original id values for each Orphanet concept,
-\code{load_redirections} translate them according to \code{"orphatools_dict"} option, which can be set manually using
-built-in \code{\link[=options]{options()}} function or through the \code{\link[=orphatools_options]{orphatools_options()}} interface.
+\code{load_redirections} translate them according to \code{"RDaggregator_dict"} option, which can be set manually using
+built-in \code{\link[=options]{options()}} function or through the \code{\link[=RDaggregator_options]{RDaggregator_options()}} interface.
 }
 \examples{
 df_redirections = load_raw_redirections()

@@ -1,8 +1,8 @@
 get_pack_versions = function(){
-  usr_dir = tools::R_user_dir('orphatools', 'config')
+  usr_dir = tools::R_user_dir('RDaggregator', 'config')
   versions_filepath = file.path(usr_dir, 'pack_versions.csv')
   if(!file.exists(versions_filepath))
-    versions_filepath = system.file(package='orphatools', 'extdata', 'pack_versions.csv')
+    versions_filepath = system.file(package='RDaggregator', 'extdata', 'pack_versions.csv')
   df_versions = read.csv2(versions_filepath)
   return(df_versions)
 }
@@ -20,7 +20,7 @@ set_default_pack_version = function(version){
 }
 
 save_pack_versions = function(df_versions){
-  usr_dir = tools::R_user_dir('orphatools', 'config')
+  usr_dir = tools::R_user_dir('RDaggregator', 'config')
   if(!file.exists(usr_dir))
     dir.create(usr_dir, recursive = TRUE)
   filepath = file.path(usr_dir, 'pack_versions.csv')
@@ -28,7 +28,7 @@ save_pack_versions = function(df_versions){
 }
 
 save_pack = function(pack_data, version){
-  usr_dir = tools::R_user_dir('orphatools', 'data')
+  usr_dir = tools::R_user_dir('RDaggregator', 'data')
   dest_dir = file.path(usr_dir, 'pack_data')
   if(!file.exists(dest_dir))
     dir.create(dest_dir, recursive = TRUE)
@@ -38,7 +38,7 @@ save_pack = function(pack_data, version){
 }
 
 
-#' Add a nomenclature pack to `orphatools`
+#' Add a nomenclature pack to `RDaggregator`
 #'
 #' @description
 #' This function analyzes the nomenclature pack files and saves them internally in an R-friendly format.
@@ -46,7 +46,7 @@ save_pack = function(pack_data, version){
 #' @details
 #' Orphanet publishes the nomenclature pack on a yearly basis, and is deployed in different language versions.
 #' The different nomenclature pack versions are available \href{https://www.orphadata.com/pack-nomenclature/}{here}.
-#' They must be downloaded locally and uncompressed to be added to `orphatools`.
+#' They must be downloaded locally and uncompressed to be added to `RDaggregator`.
 #'
 #' The uncompressed Orphanet nomenclature pack contains a set of *.xml* and *.xlsx* files for coding, including the nomenclature file
 #' (e.g. *ORPHAnomenclature_fr_2023.xml*) and a set of more than 30 classifications (usually contained in *Classifications* folder).
@@ -60,7 +60,7 @@ save_pack = function(pack_data, version){
 #' depicting the global Orphanet classification system.
 #'
 #' Once added, the nomenclature pack will appear among the available options
-#' through the [orphatools_options()] interface. It can also be manually set using the built-in
+#' through the [RDaggregator_options()] interface. It can also be manually set using the built-in
 #' [options()] function and the `"nomenclature_version"` name.
 #'
 #' @param zip_filepath The location of the _.zip_ file containing the nomenclature pack.
@@ -75,7 +75,7 @@ save_pack = function(pack_data, version){
 #'
 #' @export
 #'
-#' @seealso [orphatools_options()] to switch from a pack to another,
+#' @seealso [RDaggregator_options()] to switch from a pack to another,
 #'  [load_nomenclature()], [load_raw_nomenclature()],
 #'  [load_classifications()], [load_synonyms()], [load_redirections()]
 #'  to load the data added through this function.
@@ -83,7 +83,7 @@ save_pack = function(pack_data, version){
 add_nomenclature_pack = function(zip_filepath,
                                  default=FALSE,
                                  force=FALSE,
-                                 destdir=tools::R_user_dir('orphatools', 'data')
+                                 destdir=tools::R_user_dir('RDaggregator', 'data')
                                  ){
   if(!file.exists(zip_filepath))
     stop(simpleError('The given file was not found.'))
@@ -102,7 +102,7 @@ add_nomenclature_pack = function(zip_filepath,
   classif_files = unzipped_files %>%
     Filter(\(x) str_detect(x, 'ORPHAclassification'), .)
   if(length(nomenclature_file) != 1 | length(classif_files) != n_classif_files)
-    stop(simpleError('The given file does not have the right format for `orphatools`.'))
+    stop(simpleError('The given file does not have the right format for `RDaggregator`.'))
   else
     message('Loading and processing nomenclature pack. This may take a few minutes.')
 
@@ -143,7 +143,7 @@ add_nomenclature_pack = function(zip_filepath,
   # Set default
   if(default){
     set_default_pack_version(version)
-    # options('orphatools.pack'=version)
+    # options('RDaggregator.pack'=version)
   }
 
   message(sprintf('Nomenclature pack (%s) was succesfully added.', version))

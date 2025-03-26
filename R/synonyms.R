@@ -12,7 +12,7 @@
 #' @seealso [get_all_labels()] to directly extract all the names associated to the given ORPHAcode.
 load_synonyms = function(){
   # Get nomenclature version
-  v = getOption('orphatools_nomenclature', default_pack_version())
+  v = getOption('RDaggregator_nomenclature', default_pack_version())
   nomenclature_path = get_pack_versions() %>% filter(version==v) %>% pull(location)
 
   #internal pack_data is silently loaded
@@ -21,7 +21,7 @@ load_synonyms = function(){
   else if(nomenclature_path != 'internal')
     stop(simpleError(
     'Loading of synonyms failed. Internal files might be broken.
-    See `orphatools_options`, `add_nomenclature_pack` or consider reisntalling orphatools package.'))
+    See `RDaggregator_options`, `add_nomenclature_pack` or consider reisntalling RDaggregator package.'))
 
   return(pack_data$synonyms)
 }

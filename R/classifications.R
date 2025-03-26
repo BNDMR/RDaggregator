@@ -14,11 +14,11 @@
 #' `load_classifications`
 #' Mind using `bind_rows` followed by `distinct` to merge all classification.
 #'
-#' The classification system will change according to the chosen `"orphatools_nomenclature"`
-#' option, that you can set via the [orphatools_options()] interface. Add a new available option
+#' The classification system will change according to the chosen `"RDaggregator_nomenclature"`
+#' option, that you can set via the [RDaggregator_options()] interface. Add a new available option
 #' with [add_nomenclature_pack()].
 #'
-#' @seealso [add_nomenclature_pack()], [orphatools_options()]
+#' @seealso [add_nomenclature_pack()], [RDaggregator_options()]
 #' @examples
 #' library(dplyr)
 #'
@@ -36,7 +36,7 @@ NULL
 #' @export
 load_classifications = function()
 {
-    v = getOption('orphatools_nomenclature', default_pack_version())
+    v = getOption('RDaggregator_nomenclature', default_pack_version())
   nomenclature_path = get_pack_versions() %>% filter(version==v) %>% pull(location)
 
   #internal pack_data is silently loaded
@@ -45,7 +45,7 @@ load_classifications = function()
   else if(nomenclature_path != 'internal')
     stop(simpleError(
     'Loading of classifications failed. Internal files might be broken.
-    See `orphatools_options`, `add_nomenclature_pack` or consider reisntalling orphatools package.'))
+    See `RDaggregator_options`, `add_nomenclature_pack` or consider reisntalling RDaggregator package.'))
 
   return(pack_data$classifications)
 }

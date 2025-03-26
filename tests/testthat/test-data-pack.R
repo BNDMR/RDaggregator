@@ -9,7 +9,7 @@ test_that("finds internal pack versions", {
 # Test adding new pack
 test_that("adds a new pack, existing pack and sets default correctly", {
   # Backup existing versions
-  usr_dir = tools::R_user_dir('orphatools', 'config')
+  usr_dir = tools::R_user_dir('RDaggregator', 'config')
   versions_path = file.path(usr_dir, 'pack_versions.csv')
 
   if(file.exists(versions_path)){

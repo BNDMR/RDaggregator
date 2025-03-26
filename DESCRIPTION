@@ -1,10 +1,10 @@
-Package: orphatools
+Package: RDaggregator
 Title: Tools to deal with the Orpha classifications
 Version: 0.1.0.9010
 Authors@R: 
     person("Remy", "Dumas", , "remy.dumas@aphp.fr", role = c("aut", "cre"),
            comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: Use the orpha classifications to find ancestors, children or even relatives of an orpha code.
+Description: Data package to analyse rare diseases in R
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2

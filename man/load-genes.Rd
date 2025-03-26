@@ -23,8 +23,8 @@ Load all needed information to explore associations between ORPHAcodes and genes
 to genes in a different way.
 }
 \details{
-The loaded dataframes directly depend on the \code{"orphatools_gene_file"} option that
-you can set via the \code{\link[=orphatools_options]{orphatools_options()}} interface. You can add an available option
+The loaded dataframes directly depend on the \code{"RDaggregator_gene_file"} option that
+you can set via the \code{\link[=RDaggregator_options]{RDaggregator_options()}} interface. You can add an available option
 with \code{\link[=add_associated_genes]{add_associated_genes()}}.
 }
 \examples{
@@ -33,5 +33,5 @@ df_genes_synonyms = load_genes_synonyms()
 
 }
 \seealso{
-\code{\link[=orphatools_options]{orphatools_options()}}, \code{\link[=add_associated_genes]{add_associated_genes()}}, \code{\link[=specify_code]{specify_code()}}
+\code{\link[=RDaggregator_options]{RDaggregator_options()}}, \code{\link[=add_associated_genes]{add_associated_genes()}}, \code{\link[=specify_code]{specify_code()}}
 }

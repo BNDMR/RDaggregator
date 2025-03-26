@@ -2,13 +2,13 @@
 % Please edit documentation in R/data-genes.R
 \name{add_associated_genes}
 \alias{add_associated_genes}
-\title{Add ORPHAcodes-genes associations to \code{orphatools}.}
+\title{Add ORPHAcodes-genes associations to \code{RDaggregator}.}
 \usage{
 add_associated_genes(
   filepath,
   default = FALSE,
   force = FALSE,
-  destdir = tools::R_user_dir("orphatools", "data")
+  destdir = tools::R_user_dir("RDaggregator", "data")
 )
 }
 \arguments{
@@ -27,16 +27,16 @@ and saves them internally in an R-friendly format.
 \details{
 Orphanet publishes genes data on a 6-months basis, and is deployed in english only.
 The different file versions are available \href{https://www.orphadata.com/genes/}{here}.
-They must be downloaded locally to be added to \code{orphatools}.
+They must be downloaded locally to be added to \code{RDaggregator}.
 
 As a gene mutation may have various effects on individuals health, this file indicates how genes and
 clinical entities are related, giving the association type and status. Genes can be referred through
 multiple referentials including HGNC, OMIM, Ensembl, Genatlas, Reactome and SwissProt.
 
 The added file version will appear among the available options
-through the \code{\link[=orphatools_options]{orphatools_options()}} interface. It can also be manually set using the built-in
+through the \code{\link[=RDaggregator_options]{RDaggregator_options()}} interface. It can also be manually set using the built-in
 \code{\link[=options]{options()}} function and the \code{"gene_file_version"} name.
 }
 \seealso{
-\code{\link[=orphatools_options]{orphatools_options()}}, \code{\link[=load_associated_genes]{load_associated_genes()}}, \code{\link[=load_genes_synonyms]{load_genes_synonyms()}}
+\code{\link[=RDaggregator_options]{RDaggregator_options()}}, \code{\link[=load_associated_genes]{load_associated_genes()}}, \code{\link[=load_genes_synonyms]{load_genes_synonyms()}}
 }

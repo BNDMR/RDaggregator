@@ -1,8 +1,8 @@
 get_genes_versions = function(){
-  usr_dir = tools::R_user_dir('orphatools', 'config')
+  usr_dir = tools::R_user_dir('RDaggregator', 'config')
   versions_filepath = file.path(usr_dir, 'genes_versions.csv')
   if(!file.exists(versions_filepath))
-    versions_filepath = system.file(package='orphatools', 'extdata', 'genes_versions.csv')
+    versions_filepath = system.file(package='RDaggregator', 'extdata', 'genes_versions.csv')
   df_versions = read.csv2(versions_filepath)
   return(df_versions)
 }
@@ -20,7 +20,7 @@ set_default_genes_version = function(version){
 }
 
 save_genes_versions = function(df_versions){
-  usr_dir = tools::R_user_dir('orphatools', 'config')
+  usr_dir = tools::R_user_dir('RDaggregator', 'config')
   if(!file.exists(usr_dir))
     dir.create(usr_dir, recursive = TRUE)
   filepath = file.path(usr_dir, 'genes_versions.csv')
@@ -28,7 +28,7 @@ save_genes_versions = function(df_versions){
 }
 
 save_genes = function(genes_data, version){
-  usr_dir = tools::R_user_dir('orphatools', 'data')
+  usr_dir = tools::R_user_dir('RDaggregator', 'data')
   dest_dir = file.path(usr_dir, 'genes_data')
   if(!file.exists(dest_dir))
     dir.create(dest_dir, recursive = TRUE)
@@ -38,7 +38,7 @@ save_genes = function(genes_data, version){
 }
 
 
-#' Add ORPHAcodes-genes associations to `orphatools`.
+#' Add ORPHAcodes-genes associations to `RDaggregator`.
 #'
 #' @description
 #' This function analyzes the file containing associations between ORPHAcodes and genes
@@ -47,14 +47,14 @@ save_genes = function(genes_data, version){
 #' @details
 #' Orphanet publishes genes data on a 6-months basis, and is deployed in english only.
 #' The different file versions are available \href{https://www.orphadata.com/genes/}{here}.
-#' They must be downloaded locally to be added to `orphatools`.
+#' They must be downloaded locally to be added to `RDaggregator`.
 #'
 #' As a gene mutation may have various effects on individuals health, this file indicates how genes and
 #' clinical entities are related, giving the association type and status. Genes can be referred through
 #' multiple referentials including HGNC, OMIM, Ensembl, Genatlas, Reactome and SwissProt.
 #'
 #' The added file version will appear among the available options
-#' through the [orphatools_options()] interface. It can also be manually set using the built-in
+#' through the [RDaggregator_options()] interface. It can also be manually set using the built-in
 #' [options()] function and the `"gene_file_version"` name.
 #'
 #' @param filepath An xml file published by Orphanet containing the associations between ORPHAcodes and genes.
@@ -68,11 +68,11 @@ save_genes = function(genes_data, version){
 #' @importFrom stringr str_split_1
 #'
 #' @export
-#' @seealso [orphatools_options()], [load_associated_genes()], [load_genes_synonyms()]
+#' @seealso [RDaggregator_options()], [load_associated_genes()], [load_genes_synonyms()]
 add_associated_genes = function(filepath,
                                 default=FALSE,
                                 force=FALSE,
-                                destdir=tools::R_user_dir('orphatools', 'data')){
+                                destdir=tools::R_user_dir('RDaggregator', 'data')){
   # Read file
   if(!file.exists(filepath))
     stop(simpleError('The given file was not found.'))
