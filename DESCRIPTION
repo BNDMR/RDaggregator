@@ -1,9 +1,9 @@
 Package: RDaggregator
-Title: Tools to deal with the Orpha classifications
+Title: RDaggregator
 Version: 1.0.0
 Authors@R: 
-    person("Remy", "Dumas", , "remy.dumas@aphp.fr", role = c("aut", "cre"),
-           comment = c(ORCID = "YOUR-ORCID-ID"))
+    person("Remy", "Dumas", , "remy.dumas@aphp.fr", role = c("aut", "cre", "cph"),
+           comment = c(ORCID = "0009-0005-8919-9857"))
 Description: Data package to analyse rare diseases in R
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
@@ -33,5 +33,5 @@ Depends:
     R (>= 2.10)
 Config/testthat/edition: 3
 LazyData: true
-URL: https://github.com/Thorry13/orphatools, https://thorry13.github.io/orphatools/, https://bndmr.github.io/RDaggregator/
-BugReports: https://github.com/Thorry13/orphatools/issues
+URL: https://bndmr.github.io/RDaggregator/, https://github.com/BNDMR/RDaggregator
+BugReports: https://github.com/BNDMR/RDaggregator/issues
