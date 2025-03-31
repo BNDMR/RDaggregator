@@ -17,5 +17,6 @@ coverage](https://codecov.io/gh/BNDMR/RDaggregator/graph/badge.svg)](https://app
 You can install the development version of RDaggregator like so:
 
 ``` r
+library(remotes)
 install_github('BNDMR/RDaggregator')
 ```
