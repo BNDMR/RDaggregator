@@ -1,3 +1,5 @@
+# RDaggregator 1.0.2
+
 # RDaggregator 1.0.1
 
 # RDaggregator 1.0.0
