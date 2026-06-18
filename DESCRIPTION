@@ -1,6 +1,6 @@
 Package: RDaggregator
 Title: Data Package for Rare Diseases
-Version: 1.0.2
+Version: 1.0.3
 Authors@R: 
     person("Remy", "Dumas", , "remy.dumas84@gmail.com", role = c("aut", "cre"),
            comment = c(ORCID = "0009-0005-8919-9857"))
