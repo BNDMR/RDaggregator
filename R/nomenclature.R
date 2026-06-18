@@ -20,13 +20,14 @@
 #'
 #' @return The ORPHAcodes properties as a data.frame object.
 #'
+#' @importFrom rlang .data
 #' @export
 #' @seealso [get_label()], [get_classification_level()], [get_status()], [get_type()] to access specific properties,
 #' [load_synonyms()], [get_all_labels()], [load_redirections()], [load_redirections()] to access other pieces of information contained in the nomenclature file.
 #' @name load_nomenclature
 load_raw_nomenclature = function(){
   v = getOption('RDaggregator_nomenclature', default_pack_version())
-  nomenclature_path = get_pack_versions() %>% filter(version==v) %>% pull(location)
+  nomenclature_path = get_pack_versions() %>% filter(.data$version==v) %>% pull("location")
 
   #internal pack_data is silently loaded
   if(file.exists(nomenclature_path))
@@ -96,7 +97,7 @@ NULL
 get_label = function(orpha_codes){
   labels = data.frame(orpha_code=as.character(orpha_codes)) %>%
     left_join(load_nomenclature(), by='orpha_code') %>%
-    pull(label)
+    pull("label")
   return(labels)
 }
 
@@ -105,7 +106,7 @@ get_label = function(orpha_codes){
 get_classification_level = function(orpha_codes){
   levels = data.frame(orpha_code=as.character(orpha_codes)) %>%
     left_join(load_nomenclature(), by='orpha_code') %>%
-    pull(level)
+    pull("level")
   return(levels)
 }
 
@@ -132,23 +133,26 @@ is_active = function(orpha_codes){
 get_type = function(orpha_codes){
   disorder_types = data.frame(orpha_code=as.character(orpha_codes)) %>%
     left_join(load_nomenclature(), by='orpha_code') %>%
-    pull(type)
+    pull("type")
   return(disorder_types)
 }
 
 
 # Translate Orphanet concepts
+#' @importFrom rlang .data
+#' @importFrom dplyr all_of filter pull mutate across
+#' @importFrom utils read.csv2
 translate_orpha_concepts = function(X, cols=NULL){
   t = function(x){
     xt = data.frame(id=as.character(x)) %>%
       left_join(df_dict, by='id') %>%
-      pull(label)
+      pull("label")
     return(xt)
   }
 
   # Load dict
   dict = getOption('RDaggregator_dict', default_dict())
-  dict_path = get_dict_versions() %>% filter(version==dict) %>% pull(location)
+  dict_path = get_dict_versions() %>% filter(.data$version==dict) %>% pull("location")
 
   # df_dict is already lazy-loaded. To be updated only if option references external version.
   if(file.exists(dict_path))

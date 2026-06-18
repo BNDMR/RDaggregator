@@ -48,7 +48,7 @@ color_class_levels = function(graph){
   # Determine classification levels for each ORPHAcodes
   class_levels = data.frame(orpha_code = names(V(graph))) %>%
     left_join(load_raw_nomenclature(), by='orpha_code') %>%
-    pull(level)
+    pull("level")
 
   # Color nodes
   graph = set_vertex_attr(graph, 'classLevel', index=class_levels == '36540', 'Group')
@@ -77,6 +77,7 @@ color_class_levels = function(graph){
 #'
 #' @return An adapted layout to plot nodes from Orpha classifications
 #' @import magrittr
+#' @importFrom rlang .data
 #' @importFrom dplyr group_by summarize filter select full_join n_distinct pull
 #' @importFrom igraph as_data_frame
 #' @export
@@ -128,15 +129,15 @@ vertical_positions = function(graph)
 
   # Calculate depth
   current_nodes = df_edges %>%
-    filter(from %in% roots) %>%
-    pull(to)
+    filter(.data$from %in% roots) %>%
+    pull("to")
   while(length(current_nodes))
   {
     i = i+1
     df_y$y[df_y$name %in% current_nodes] = i
     current_nodes = df_edges %>%
-      filter(from %in% current_nodes) %>%
-      pull(to)
+      filter(.data$from %in% current_nodes) %>%
+      pull("to")
   }
 
   return(df_y)
@@ -153,6 +154,7 @@ vertical_positions = function(graph)
 #' it considers a SuperNode above the graph roots with relative_position=0.
 #'
 #' @import magrittr
+#' @importFrom rlang .data
 #' @importFrom dplyr left_join group_by summarize bind_rows
 #' @importFrom igraph as_data_frame graph_from_data_frame
 horizontal_positions = function(graph, df_y, h_size, root_node=NULL)
@@ -167,8 +169,8 @@ horizontal_positions = function(graph, df_y, h_size, root_node=NULL)
                                     to=root_nodes),
                          df_edges) %>%
       left_join(df_y, by=c('to'='name')) %>%
-      group_by(to) %>%
-      summarize(from=from[which.max(y)]) %>%
+      group_by(.data$to) %>%
+      summarize(from=.data$from[which.max(.data$y)]) %>%
       as.data.frame()
     h_size = bind_rows(data.frame(name='SuperNode',
                                   size=sum(h_size$size[h_size$name %in% root_nodes])),
@@ -201,7 +203,7 @@ horizontal_positions = function(graph, df_y, h_size, root_node=NULL)
     else
     {
       # Find children of the current node
-      children = df_edges %>% filter(from==root_node$name)
+      children = df_edges %>% filter(.data$from==root_node$name)
       N = length(children$to)
 
       # Get their sizes
@@ -240,6 +242,7 @@ horizontal_positions = function(graph, df_y, h_size, root_node=NULL)
 #' it appplies the function recursively on each root of the graph.
 #'
 #' @import magrittr
+#' @importFrom rlang .data
 #' @importFrom dplyr left_join group_by summarize bind_rows filter select
 #' @importFrom igraph as_data_frame
 #' @importFrom stringr str_split_1 str_length
@@ -259,8 +262,8 @@ horizontal_sizes = function(graph, df_y, root_node=NULL)
     # Remove some edges to keep a descendant architecture
     df_edges = igraph::as_data_frame(graph, what='edges') %>%
       left_join(df_y, by=c('to'='name')) %>%
-      group_by(to) %>%
-      summarize(from=from[which.max(y)]) %>%
+      group_by(.data$to) %>%
+      summarize(from=.data$from[which.max(.data$y)]) %>%
       as.data.frame()
 
     df_nodes = igraph::as_data_frame(graph, what='vertices')
@@ -276,15 +279,15 @@ horizontal_sizes = function(graph, df_y, root_node=NULL)
     {
       # Apply the function recursively on each child
       children = df_edges %>%
-        filter(from==root_node) %>%
-        pull(to)
+        filter(.data$from==root_node) %>%
+        pull("to")
       df_children_sizes = children %>%
         lapply(function(node) horizontal_sizes(graph, df_y, node)) %>%
         bind_rows()
 
       # Once children sizes are known, root_size can be calculated
       root_size = df_children_sizes %>%
-        filter(name %in% children) %>%
+        filter(.data$name %in% children) %>%
         select(size) %>%
         sum()
       return(rbind(data.frame(name=root_node,
@@ -317,22 +320,22 @@ interactive_plot = function(graph, layout_tree = FALSE)
 {
   df_nodes = graph %>%
     as_data_frame(what='vertices') %>%
-    rename(id=name) %>%
-    mutate(label=id)
+    rename(id="name") %>%
+    mutate(label=.data$id)
 
 
   # Rename color parameters if they are provided
   if('color' %in% names(df_nodes))
     df_nodes = df_nodes %>%
     mutate(
-      color.background = color,
-      color.highlight = color) %>%
-    select(-color)
+      color.background = .data$color,
+      color.highlight = .data$color) %>%
+    select(-"color")
   if(all(c('frame.color', 'label.color') %in% names(df_nodes))){
     df_nodes = df_nodes %>%
       mutate(
-        color.border = coalesce(frame.color, '#2B7CE9'),
-        font.color = label.color)
+        color.border = coalesce(.data$frame.color, '#2B7CE9'),
+        font.color = .data$label.color)
   }
 
   df_edges = graph %>% as_data_frame(what='edges')
@@ -363,7 +366,8 @@ interactive_plot = function(graph, layout_tree = FALSE)
 #' @param prefix The prefix of the indented columns. Default is `"indent"`.
 #'
 #' @import magrittr
-#' @importFrom dplyr mutate rename_with
+#' @importFrom rlang .data
+#' @importFrom dplyr mutate rename_with any_of
 #' @importFrom tidyr replace_na
 #' @importFrom stringr str_count str_replace
 #' @importFrom stats setNames
@@ -404,9 +408,9 @@ apply_orpha_indent = function(df, indented_cols=NULL, prefix='indent')
   df = df %>%
     left_join(df_index, by='orpha_code' %>% setNames(code_col)) %>%
     mutate(
-      index = replace_na(index, '.9999'),
-      n_indent = str_count(index, '\\.')) %>%
-    arrange(index)
+      index = replace_na(.data$index, '.9999'),
+      n_indent = str_count(.data$index, '\\.')) %>%
+    arrange(.data$index)
 
   # Apply indentation
   M = matrix('', nrow = nrow(df), ncol = max(df$n_indent, na.rm = T) + length(indented_cols) - 1)
@@ -418,7 +422,7 @@ apply_orpha_indent = function(df, indented_cols=NULL, prefix='indent')
   df_indent = as.data.frame(M) %>% rename_with(~str_replace(.x, 'V', prefix))
 
   df_final = df %>%
-    select(-any_of(indented_cols), -index, -n_indent) %>%
+    select(-any_of(indented_cols), -"index", -"n_indent") %>%
     # bind_cols(df_indent)
     cbind(df_indent) %>%
     dplyr_reconstruct(df)
@@ -436,7 +440,7 @@ assign_indent_index = function(df, current_code = NULL, current_index = '')
   else if(current_code %in% find_leaves(graph))
     return(NULL)
   else
-    current_children = df %>% filter(from == current_code) %>% pull(to)
+    current_children = df %>% filter(.data$from == current_code) %>% pull("to")
 
   # Compute index for each child (and their own children by recursivity) and compile results
   N_children = length(current_children)
@@ -451,7 +455,7 @@ assign_indent_index = function(df, current_code = NULL, current_index = '')
                      index = children_index))
 
   # Return the sorted data.frame
-  return(df_index %>% arrange(index))
+  return(df_index %>% arrange(.data$index))
 }
 
 
@@ -478,6 +482,7 @@ path2edges = function(path){
 #' subgraph because of edges management.
 #'
 #' @import magrittr
+#' @importFrom rlang .data
 #' @importFrom igraph graph_from_data_frame all_simple_paths
 #' @importFrom dplyr bind_rows distinct rowwise
 #'
@@ -500,7 +505,7 @@ path2edges = function(path){
 minimize_graph = function(graph, vs){
   roots = find_roots(graph)
   leaves = find_leaves(graph)
-  all_paths = lapply(roots, \(root) all_simple_paths(graph, from = root, to=leaves)) %>%
+  all_paths = lapply(roots, \(root) all_simple_paths(graph, from=root, to=leaves)) %>%
     unlist(recursive=FALSE) %>%
     sapply(\(x) names(x)[names(x) %in% vs], simplify=FALSE)
 
@@ -514,9 +519,9 @@ minimize_graph = function(graph, vs){
   if(nrow(df_edges))
     df_edges = df_edges %>%
       rowwise() %>%
-      mutate(to_rem = length(all_simple_paths(tmp_graph, from, to)) > 1) %>%
+      mutate(to_rem = length(all_simple_paths(tmp_graph, .data$from, .data$to)) > 1) %>%
       ungroup() %>%
-      filter(!to_rem)
+      filter(!.data$to_rem)
 
   missing_vs = setdiff(vs, names(V(tmp_graph)))
 

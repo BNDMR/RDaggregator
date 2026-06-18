@@ -16,7 +16,7 @@ A character vector containing all labels associated to the given ORPHAcode.
 Extract the synonyms of the given ORPHAcode as well as its preferential label, given in first position.
 }
 \examples{
-
+get_all_labels(65753) # Possible names for CMT1
 
 }
 \seealso{

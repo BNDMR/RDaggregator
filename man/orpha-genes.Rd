@@ -57,7 +57,7 @@ For both functions, each row is considered as independent by default.
 You have a couple of options to deal cases where an individual genes are spread over multiple rows :
 \itemize{
 \item Set the \code{.by} argument instead of \code{group_by}.
-\item Use \code{group_by} to \code{\link[=chop]{chop()}} mutated genes into a list-column and \code{ungroup} to make your data row-wise compatible.
+\item Use \code{group_by} to \code{\link[tidyr:chop]{chop()}} mutated genes into a list-column and \code{ungroup} to make your data row-wise compatible.
 }
 }
 \examples{

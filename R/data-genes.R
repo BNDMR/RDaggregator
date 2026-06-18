@@ -19,6 +19,7 @@ set_default_genes_version = function(version){
   save_genes_versions(df_versions)
 }
 
+#' @importFrom utils write.csv2
 save_genes_versions = function(df_versions){
   usr_dir = tools::R_user_dir('RDaggregator', 'config')
   if(!file.exists(usr_dir))
@@ -119,6 +120,7 @@ add_associated_genes = function(filepath,
 }
 
 
+#' @importFrom rlang .data
 process_genes = function(genes_data_raw){
   adaptative_to_list = function(y){
     if(is.na(y)) return(NULL)
@@ -144,8 +146,8 @@ process_genes = function(genes_data_raw){
       pref_symbol = gene_node$Gene$Symbol[[1]],
       name = gene_node$Gene$Name[[1]],
       synonyms = sapply(gene_node$Gene$SynonymList, \(x) x[[1]]) %>% unname()) %>%
-      mutate(synonyms = ifelse(n_syns, synonyms, as.character(NA))) %>%
-      select(-n_syns)
+      mutate(synonyms = ifelse(.data$n_syns, .data$synonyms, as.character(NA))) %>%
+      select(-"n_syns")
     return(props_df)
   }
 
@@ -199,8 +201,8 @@ process_genes = function(genes_data_raw){
     bind_rows() %>%
     distinct() %>%
     # left_join(genes_synonyms %>% select(gene_id, pref_symbol, name) %>% distinct(), by='gene_id') %>%
-    left_join(df_genes_extrefs %>% pivot_wider(names_from=source, values_from=reference, values_fn=\(x) paste0(x, collapse = ',')), by='gene_id') %>%
-    mutate(across(c(OMIM, Reactome, SwissProt), ~ sapply(.x, adaptative_to_list, USE.NAMES = F))) %>%
+    left_join(df_genes_extrefs %>% pivot_wider(names_from=.data$source, values_from=.data$reference, values_fn=\(x) paste0(x, collapse = ',')), by='gene_id') %>%
+    mutate(across(all_of(c("OMIM", "Reactome", "SwissProt")), ~ sapply(.x, adaptative_to_list, USE.NAMES = F))) %>%
     left_join(df_genes_locus, by='gene_id')
 
   return(list(

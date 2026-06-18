@@ -126,7 +126,8 @@ dplyr_col_modify.orpha_df = function(data, cols){
 #' @inheritParams dplyr::group_by
 #'
 #' @export
-#' @importFrom dplyr group_vars bind_rows distinct group_by ungroup summarize mutate relocate select rename dplyr_col_modify dplyr_reconstruct last if_else enquos dplyr_row_slice
+#' @importFrom rlang :=
+#' @importFrom dplyr group_vars bind_rows distinct group_by ungroup summarize mutate relocate select rename dplyr_col_modify dplyr_reconstruct last if_else enquos dplyr_row_slice any_of all_of
 #' @importFrom tidyr complete unnest
 #'
 #' @examples
@@ -184,14 +185,14 @@ group_by.orpha_df = function(.data, ...){
       mutate(!!code_col := factor(.data[[code_col]], levels=all_codes)) %>%
       complete(!!sym(code_col), fill=list(".rows"=list(integer(0)))) %>%
       left_join(df_ancestors, by=code_col) %>%
-      relocate(all_ancestors, .before = all_of(code_col)) %>%
-      unnest(all_ancestors, keep_empty = TRUE) %>%
+      relocate("all_ancestors", .before = all_of(code_col)) %>%
+      unnest("all_ancestors", keep_empty = TRUE) %>%
       mutate(all_ancestors =
-               if_else(is.na(all_ancestors), .data[[code_col]], all_ancestors)) %>%
+               if_else(is.na(.data$all_ancestors), .data[[code_col]], .data$all_ancestors)) %>%
       select(-all_of(code_col)) %>%
-      group_by(across(c(-.rows))) %>%
-      summarize(.rows = list(unique(unlist(.rows)))) %>%
-      rename(!!code_col := all_ancestors)
+      group_by(across(c(-".rows"))) %>%
+      summarize(.rows = list(unique(unlist(.data$.rows)))) %>%
+      rename(!!code_col := "all_ancestors")
 
     attr(df_grouped, 'groups') = groups
   }

@@ -4,29 +4,26 @@ Version: 1.0.1
 Authors@R: 
     person("Remy", "Dumas", , "remy.dumas84@gmail.com", role = c("aut", "cre"),
            comment = c(ORCID = "0009-0005-8919-9857"))
-Description: Routines to better comprehend and analyze data using the Orphanet system. It particularly helps aggregating on multiple levels at the same time
+Description: Routines to better comprehend and analyze data using the Orphanet system. It particularly helps aggregating on multiple levels at the same time.
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.2
 Imports: 
     dplyr,
-    ggenealogy,
     igraph,
-    kableExtra,
-    lifecycle,
     magrittr,
     purrr,
     rlang,
     stringr,
-    tictoc,
     tidyr,
-    vdiffr,
     visNetwork,
     xml2
 Suggests: 
     knitr,
     rmarkdown,
-    testthat (>= 3.0.0)
+    testthat (>= 3.0.0),
+    tictoc,
+    vdiffr,
+    kableExtra
 VignetteBuilder: knitr
 License: GPL (>= 3) + file LICENSE
 Depends: 
@@ -35,3 +32,4 @@ Config/testthat/edition: 3
 LazyData: true
 URL: https://bndmr.github.io/RDaggregator/, https://github.com/BNDMR/RDaggregator
 BugReports: https://github.com/BNDMR/RDaggregator/issues
+Config/roxygen2/version: 8.0.0

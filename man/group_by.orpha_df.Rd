@@ -9,15 +9,15 @@
 \arguments{
 \item{.data}{An \code{\link[=orpha_df]{orpha_df()}} instantiation.}
 
-\item{...}{In \code{group_by()}, variables or computations to group by.
-Computations are always done on the ungrouped data frame.
-To perform computations on the grouped data, you need to use
-a separate \code{mutate()} step before the \code{group_by()}.
+\item{...}{<\code{\link[rlang:args_data_masking]{data-masking}}> In \code{group_by()},
+variables or computations to group by. Computations are always done on the
+ungrouped data frame. To perform computations on the grouped data, you need
+to use a separate \code{mutate()} step before the \code{group_by()}.
 Computations are not allowed in \code{nest_by()}.
 In \code{ungroup()}, variables to remove from the grouping.}
 }
 \description{
-This is a method for the dplyr \code{\link[=group_by]{group_by()}} generic. It extends initial groups by adding
+This is a method for the dplyr \code{\link[dplyr:group_by]{group_by()}} generic. It extends initial groups by adding
 rows containing descendants ORPHAcodes. This way any row may belong to several groups.
 
 The function will force the creation of groups (they may be empty) for any ORPHAcode provided

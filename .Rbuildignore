@@ -16,3 +16,5 @@ orphatools-vignette.pdf
 ^pkgdown$
 ^cran-comments\.md$
 ^CRAN-SUBMISSION$
+^data-raw$
+^README.Rmd

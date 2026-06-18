@@ -37,7 +37,7 @@ NULL
 load_classifications = function()
 {
     v = getOption('RDaggregator_nomenclature', default_pack_version())
-  nomenclature_path = get_pack_versions() %>% filter(version==v) %>% pull(location)
+  nomenclature_path = get_pack_versions() %>% filter(.data$version==v) %>% pull("location")
 
   #internal pack_data is silently loaded
   if(file.exists(nomenclature_path))
@@ -113,7 +113,7 @@ is_in_classif = function(orpha_code, df_classif)
 #' @importFrom stats na.omit
 #' @importFrom purrr keep is_empty
 #' @importFrom stringr str_equal
-#' @importFrom rlang arg_match
+#' @importFrom rlang arg_match .data
 #'
 #' @examples
 #' library(dplyr)
@@ -188,8 +188,8 @@ get_parents = function(orpha_code, output=c('codes_only', 'edgelist', 'graph'), 
   }
 
   # Search parents
-  df_parents = df_classif %>% filter(to == orpha_code)
-  parents = df_parents %>% pull(from) %>% unique()
+  df_parents = df_classif %>% filter(.data$to == orpha_code)
+  parents = df_parents %>% pull("from") %>% unique()
 
   # Return results in the specified format
   if(output == 'edgelist')
@@ -224,8 +224,8 @@ get_children = function(orpha_code, output=c('codes_only', 'edgelist', 'graph'),
   }
 
   # Search children
-  df_children = df_classif %>% filter(from == orpha_code)
-  children = df_children %>% pull(to) %>% unique()
+  df_children = df_classif %>% filter(.data$from == orpha_code)
+  children = df_children %>% pull("to") %>% unique()
 
   # Return results in the specified format
   if(output == 'edgelist')
@@ -327,8 +327,8 @@ get_descendants = function(orpha_codes, output=c('codes_only', 'edgelist', 'grap
   graph_classif = graph_from_data_frame(df_classif)
   df_remaining = graph_classif %>%
     vertical_positions() %>%
-    filter(name %in% orpha_codes) %>%
-    arrange(y)
+    filter(.data$name %in% orpha_codes) %>%
+    arrange(.data$y)
 
   # Find all paths from the given ORPHAcode and extract elements
   descendants = NULL
@@ -346,7 +346,7 @@ get_descendants = function(orpha_codes, output=c('codes_only', 'edgelist', 'grap
       new_descendants = setdiff(new_descendants, orpha_codes)
 
     descendants = unique(c(descendants, new_descendants))
-    df_remaining = df_remaining %>% filter(!name %in% c(orpha_code, new_descendants))
+    df_remaining = df_remaining %>% filter(!.data$name %in% c(orpha_code, new_descendants))
   }
 
   # Build graph
@@ -379,7 +379,7 @@ get_siblings = function(orpha_code, output=c('codes_only', 'edgelist', 'graph'),
   parents = get_parents(orpha_code, df_classif, output='codes_only')
 
   # Find the children of parents (=siblings)
-  df_siblings = df_classif %>% filter(from %in% parents, to != orpha_code)
+  df_siblings = df_classif %>% filter(.data$from %in% parents, .data$to != orpha_code)
   siblings = setdiff(unique(df_siblings$to), orpha_code)
 
   # Return results in the specified format
@@ -413,7 +413,7 @@ complete_family = function(orpha_codes, output=c('codes_only', 'edgelist', 'grap
   if(max_depth == 0)
     ancestors=NULL
   else if(max_depth == 1)
-    ancestors = df_classif %>% filter(to %in% orpha_codes) %>% pull(from) %>% unique()
+    ancestors = df_classif %>% filter(.data$to %in% orpha_codes) %>% pull("from") %>% unique()
   else
     ancestors = get_ancestors(orpha_codes, df_classif = df_classif, max_depth=max_depth)
 
@@ -505,6 +505,7 @@ get_LCAs = function(orpha_codes, df_classif=NULL)
 #' `get_lowest_groups` returns the closest groups from the given ORPHAcode,
 #' or the ORPHAcode itself if it is a group of disorders already.
 #'
+#' @importFrom rlang .env
 #' @importFrom dplyr bind_rows distinct filter pull left_join semi_join
 #' @importFrom igraph graph_from_data_frame
 #' @importFrom purrr keep
@@ -538,9 +539,9 @@ subtype_to_disorder = function(orpha_code, df_classif=NULL)
 
   # Find the disorder among ancestors (there should be only one)
   disorder_code = df_nomenclature %>%
-    filter(orpha_code %in% ancestors,
-           level == 36547) %>%
-    pull(orpha_code)
+    filter(.data$orpha_code %in% ancestors,
+           .data$level == 36547) %>%
+    pull("orpha_code")
 
   return(disorder_code)
 }
@@ -559,7 +560,7 @@ get_lowest_groups = function(orpha_code, df_classif=NULL)
     stop(simpleError('`get_lowest_groups` accepts only single ORPHAcode as an input.'))
 
   # Check if it isn't a group already
-  classLevel = df_nomenclature %>% filter(orpha_code == .env$orpha_code) %>% pull(level)
+  classLevel = df_nomenclature %>% filter(.data$orpha_code == .env$orpha_code) %>% pull("level")
   if(classLevel == '36540')
     return(orpha_code)
 
@@ -568,7 +569,7 @@ get_lowest_groups = function(orpha_code, df_classif=NULL)
   df_ancestors = get_ancestors(orpha_code, output='edgelist', df_classif=df_classif)
   df_groups = data.frame(orpha_code=ancestors) %>%
     left_join(df_nomenclature, by='orpha_code') %>%
-    filter(level == '36540')
+    filter(.data$level == '36540')
 
   # Get the lowest
   lowest_groups = df_ancestors %>%
@@ -616,6 +617,7 @@ in_between_graph = function(vs, df_classif=NULL){
 #' @importFrom igraph as_data_frame graph_from_data_frame
 #' @importFrom dplyr bind_rows distinct group_by summarize
 #'
+#' @importFrom rlang .data
 #' @export
 #' @examples
 #' code = '303'
@@ -639,7 +641,7 @@ merge_graphs = function(graphs_list)
     df_edges = graphs_list %>%
       lapply(function(graph) as_data_frame(graph, what='edges')) %>%
       bind_rows() %>%
-      distinct(from, to)
+      distinct(.data$from, .data$to)
 
     # Merge graphs
     merged_graph = graph_from_data_frame(df_edges, vertices=df_nodes)

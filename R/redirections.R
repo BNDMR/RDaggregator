@@ -9,6 +9,8 @@
 #'
 #' @return A data.frame object giving the deprecated or obsolete ORPHAcodes,
 #' the corresponding associations with the association type
+#'
+#' @importFrom rlang .data
 #' @export
 #' @seealso [redirect_code()]
 #'
@@ -25,7 +27,7 @@ load_redirections = function(){
 #' @export
 load_raw_redirections = function(){
   v = getOption('RDaggregator_nomenclature', default_pack_version())
-  nomenclature_path = get_pack_versions() %>% filter(version==v) %>% pull(location)
+  nomenclature_path = get_pack_versions() %>% filter(.data$version==v) %>% pull("location")
 
   #internal pack_data is silently loaded
   if(file.exists(nomenclature_path))
@@ -54,6 +56,7 @@ load_raw_redirections = function(){
 #' @return The redirected ORPHAcodes. If no redirection is found, ORPHAcodes remain the same as given,
 #' so ORPHAcodes may remain inactive after redirection.
 #'
+#' @importFrom rlang .data
 #' @importFrom dplyr coalesce filter left_join pull
 #'
 #' @export
@@ -69,12 +72,12 @@ redirect_code = function(orpha_codes, deprecated_only=TRUE){
   df_redirections = load_raw_redirections()
   if(deprecated_only)
     df_redirections = df_redirections %>%
-      filter(redir_type == 21471) # 21471 is the id for "moved to"
+      filter(.data$redir_type == 21471) # 21471 is the id for "moved to"
 
   # Redirect
   redirected_codes = data.frame(from=orpha_codes) %>%
     left_join(df_redirections, by='from') %>%
-    pull(to)
+    pull("to")
 
   return(coalesce(redirected_codes, orpha_codes))
 }

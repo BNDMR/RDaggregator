@@ -21,7 +21,7 @@ An adapted layout to plot nodes from Orpha classifications
 This layout function was specifically designed to display Orphanet classifications.
 Indeed, it only contains from/to relationships, so the latter must be oriented from top to bottom (or bottom to top if \code{reverse_y} is \code{TRUE}).
 
-The function was designed to be used with \code{\link[=plot.igraph]{plot.igraph()}} (\code{layout} argument).
+The function was designed to be used with \code{\link[igraph:plot.igraph]{plot.igraph()}} (\code{layout} argument).
 
 The associated vertical positions are obtained using \code{vertical_positions}.
 }

@@ -90,9 +90,9 @@ RDaggregator_options = function(){
 }
 
 
-#' @importFrom stringr str_remove
+#' @importFrom rlang .data
 default_dict = function(){
-  dict = get_dict_versions() %>% filter(default) %>% pull(version)
+  dict = get_dict_versions() %>% filter(.data$default) %>% pull("version")
 
   if(length(dict)==0)
     stop(simpleError('No dictionary was found. See `add_dictionary`.'))
@@ -103,9 +103,9 @@ default_dict = function(){
   return(dict)
 }
 
-
+#' @importFrom rlang .data
 default_pack_version = function(){
-  version = get_pack_versions() %>% filter(default) %>% pull(version)
+  version = get_pack_versions() %>% filter(.data$default) %>% pull("version")
 
   if(length(version)==0)
     stop(simpleError('No nomenclature pack was added. See `add_nomenclature_pack`.'))
@@ -116,9 +116,9 @@ default_pack_version = function(){
   return(version)
 }
 
-
+#' @importFrom rlang .data
 default_genes_version = function(){
-  version = get_genes_versions() %>% filter(default) %>% pull(version)
+  version = get_genes_versions() %>% filter(.data$default) %>% pull("version")
 
   if(length(version)==0)
     stop('No gene file was added. See `add_associated_genes`.')

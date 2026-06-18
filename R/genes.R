@@ -16,7 +16,9 @@
 #' @return A data frame containing for each ORPHAcode the kind of association (if any).
 #' with a related gene and all known information (symbol, name, references, locus) about the latter.
 #'
-#' @export
+#' @importFrom rlang .data
+#' @importFrom dplyr filter pull
+#'
 #' @seealso [RDaggregator_options()], [add_associated_genes()], [specify_code()]
 #'
 #' @examples
@@ -29,7 +31,7 @@
 #' @export
 load_associated_genes = function(){
   v = getOption('RDaggregator_gene_file', default_genes_version())
-  gene_file_path = get_genes_versions() %>% filter(version==v) %>% pull(location)
+  gene_file_path = get_genes_versions() %>% filter(.data$version==v) %>% pull("location")
 
   #internal genes_data is silently loaded
   if(file.exists(gene_file_path))
@@ -47,7 +49,7 @@ load_associated_genes = function(){
 #' @export
 load_genes_synonyms = function(){
   v = getOption('RDaggregator_gene_file', default_genes_version())
-  gene_file_path = get_genes_versions() %>% filter(version==v) %>% pull(location)
+  gene_file_path = get_genes_versions() %>% filter(.data$version==v) %>% pull("location")
 
   if(file.exists(gene_file_path))
     load(gene_file_path)
@@ -92,7 +94,9 @@ load_genes_synonyms = function(){
 #' Set it to NULL or a constant value to apply the full set of `genes` to each element of `orpha_codes`.
 #' A warning will be raised if any of the considered sets contains more than 10 elements.
 #'
-#' @importFrom dplyr tibble mutate pull distinct n_distinct group_by ungroup reframe left_join sym
+#' @import magrittr
+#' @importFrom rlang .data
+#' @importFrom dplyr tibble mutate pull distinct n_distinct group_by ungroup reframe left_join sym any_of
 #' @importFrom tidyr unnest
 #' @importFrom stringr str_detect
 #'
@@ -164,14 +168,14 @@ specify_code = function(orpha_codes, genes=NULL, mode='HGNC', .by=1:length(orpha
   if(is.list(genes)){
     new_codes = tibble(i=1:length(orpha_codes), orpha_code=orpha_codes, genes=genes, .by=.by) %>%
       unnest(any_of('genes')) %>%
-      mutate(new_code = specify_code(orpha_code, genes, mode=mode, .by=.by)) %>%
-      distinct(i, new_code) %>%
-      pull(new_code)
+      mutate(new_code = specify_code(.data$orpha_code, genes, mode=mode, .by=.data$.by)) %>%
+      distinct(.data$i, .data$new_code) %>%
+      pull("new_code")
     return(new_codes)
   }
 
   new_codes = analyze_specifications(orpha_codes, genes, mode, .by) %>%
-    pull(new_code)
+    pull("new_code")
 
   return(new_codes)
 }
@@ -184,18 +188,17 @@ check_orpha_gene_consistency = function(orpha_codes, genes=NULL, mode='HGNC', .b
   if(is.list(genes)){
     consistencies = tibble(i=1:length(orpha_codes), orpha_code=orpha_codes, genes=genes, .by=.by) %>%
       unnest(any_of('genes')) %>%
-      mutate(is_consistent = check_orpha_gene_consistency(orpha_code, genes, mode=mode, .by=.by)) %>%
-      distinct(i, is_consistent) %>%
-      pull(is_consistent)
+      mutate(is_consistent = check_orpha_gene_consistency(.data$orpha_code, genes, mode=mode, .by=.by)) %>%
+      distinct(.data$i, .data$is_consistent) %>%
+      pull("is_consistent")
     return(consistencies)
   }
 
   consistencies = analyze_specifications(orpha_codes, genes, mode, .by) %>%
-    pull(is_consistent)
+    pull("is_consistent")
 
   return(consistencies)
 }
-
 
 analyze_specifications = function(orpha_codes, genes=NULL, mode='HGNC', .by=1:length(orpha_codes)){
   choose_old_or_new = function(orpha_code, potential_codes){
@@ -217,27 +220,29 @@ analyze_specifications = function(orpha_codes, genes=NULL, mode='HGNC', .by=1:le
 
   # Find gene ids
   df_genes_synonyms = load_genes_synonyms() %>%
-    filter(!synonyms %in% pref_symbol)
+    filter(!.data$synonyms %in% .data$pref_symbol)
 
   # ...from symbols
   if(mode=='symbol'){
     # Given symbol might be a synonym or the preferential symbol
     df_add = df_genes_synonyms %>%
-      mutate(synonyms = pref_symbol) %>%
+      mutate(synonyms = .data$pref_symbol) %>%
       distinct()
     df_genes_synonyms_ext = df_genes_synonyms %>%
-      filter(!is.na(synonyms)) %>%
+      filter(!is.na(.data$synonyms)) %>%
       bind_rows(df_add) %>%
       distinct()
     gene_ids = data.frame(symbols = genes) %>%
       left_join(df_genes_synonyms_ext, by=c('symbols'='synonyms')) %>%
-      pull(gene_id)}
+      pull("gene_id")}
 
   # ...from HGNC codes
   else{
     gene_ids = data.frame(HGNC = as.character(genes)) %>%
-      left_join(load_associated_genes() %>% distinct(gene_id, HGNC), by='HGNC', na_matches='never') %>%
-      pull(gene_id)}
+      left_join(load_associated_genes() %>% distinct(.data$gene_id, .data$HGNC),
+                by='HGNC',
+                na_matches='never') %>%
+      pull("gene_id")}
 
   # Cast ORPHAcodes
   orpha_codes = as.character(orpha_codes)
@@ -245,30 +250,32 @@ analyze_specifications = function(orpha_codes, genes=NULL, mode='HGNC', .by=1:le
   # Get potential specifications (non-precise ORPHAcode -> precise ORPHAcode)
   df_prospects = load_associated_genes() %>%
     # Look for assessed associations between precise ORPHAcodes and genes
-    filter(association_status == 'Assessed', str_detect(association_type, 'Disease-causing'), gene_id %in% gene_ids) %>%
-    distinct(orpha_code, gene_id) %>%
+    filter(.data$association_status == 'Assessed',
+           str_detect(.data$association_type, 'Disease-causing'),
+           .data$gene_id %in% gene_ids) %>%
+    distinct(.data$orpha_code, .data$gene_id) %>%
 
     # Build relationships between given and found ORPHAcodes
     orpha_df(orpha_code_col = 'orpha_code', force_codes = unique(na.omit(orpha_codes))) %>%
-    group_by(orpha_code, gene_id) %>%
-    reframe(potential_codes = orpha_code) %>%
+    group_by(.data$orpha_code, .data$gene_id) %>%
+    reframe(potential_codes = .data$orpha_code) %>%
     ungroup() %>%
-    filter(orpha_code %in% orpha_codes) %>%
-    distinct(orpha_code, gene_id, potential_codes)
+    filter(.data$orpha_code %in% orpha_codes) %>%
+    distinct(.data$orpha_code, .data$gene_id, .data$potential_codes)
 
   # Analyze specifications
   df_analysis = tibble(i=1:length(orpha_codes), orpha_code=orpha_codes, gene_id=gene_ids, .by=.by) %>%
     group_by(across(any_of('.by'))) %>%
-    mutate(gene_id = list(gene_id)) %>%
+    mutate(gene_id = list(.data$gene_id)) %>%
     ungroup() %>%
-    unnest(gene_id) %>%
+    unnest("gene_id") %>%
     left_join(df_prospects, by=c('orpha_code', 'gene_id'), relationship='many-to-many') %>%
     group_by(across(any_of(c('.by', 'orpha_code')))) %>%
     mutate(
-      new_code = choose_old_or_new(orpha_code, potential_codes),
-      is_consistent = n_distinct(potential_codes, na.rm=T)>0) %>%
+      new_code = choose_old_or_new(.data$orpha_code, .data$potential_codes),
+      is_consistent = n_distinct(.data$potential_codes, na.rm=T)>0) %>%
     ungroup() %>%
-    distinct(i, new_code, is_consistent)
+    distinct(.data$i, .data$new_code, .data$is_consistent)
 
   return(df_analysis)
 }

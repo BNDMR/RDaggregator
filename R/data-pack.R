@@ -19,6 +19,7 @@ set_default_pack_version = function(version){
   save_pack_versions(df_versions)
 }
 
+#' @importFrom utils write.csv2
 save_pack_versions = function(df_versions){
   usr_dir = tools::R_user_dir('RDaggregator', 'config')
   if(!file.exists(usr_dir))
@@ -69,6 +70,7 @@ save_pack = function(pack_data, version){
 #' @param destdir The destination directory, in which the processed data will be saved.
 #'
 #' @import magrittr
+#' @importFrom rlang .data
 #' @importFrom xml2 read_xml as_list xml_find_all xml_find_first xml_text
 #' @importFrom stringr str_detect str_ends
 #' @importFrom dplyr bind_rows
@@ -92,15 +94,17 @@ add_nomenclature_pack = function(zip_filepath,
   zip_filename = basename(zip_filepath)
   unzipdir = file.path(tempdir(), zip_filename)
   n_classif_files = utils::unzip(zip_filepath, junkpaths = TRUE, list=TRUE) %>%
-    filter(str_detect(Name, 'ORPHAclassification')) %>% nrow()
+    filter(str_detect(.data$Name, 'ORPHAclassification')) %>% nrow()
   utils::unzip(zip_filepath, junkpaths = TRUE, exdir=unzipdir)
 
   # Detect files
   unzipped_files = list.files(unzipdir)
-  nomenclature_file = unzipped_files %>%
-    Filter(\(x) str_detect(x, 'ORPHAnomenclature') & str_ends(x, '.xml'),.)
-  classif_files = unzipped_files %>%
-    Filter(\(x) str_detect(x, 'ORPHAclassification'), .)
+  nomenclature_file = Filter(
+    \(x) str_detect(x, 'ORPHAnomenclature') & str_ends(x, '.xml'),
+    unzipped_files)
+  classif_files = Filter(
+    \(x) str_detect(x, 'ORPHAclassification'),
+    unzipped_files)
   if(length(nomenclature_file) != 1 | length(classif_files) != n_classif_files)
     stop(simpleError('The given file does not have the right format for `RDaggregator`.'))
   else
@@ -154,7 +158,7 @@ add_nomenclature_pack = function(zip_filepath,
   return(invisible(TRUE))
 }
 
-
+#' @importFrom rlang .data
 process_nomenclature = function(nomenclature_data_raw){
   read_nomenclature = function(disorder_node){
     props_df = data.frame(
@@ -177,8 +181,8 @@ process_nomenclature = function(nomenclature_data_raw){
                  function(x)  x[[1]]) %>%
           unname()
       ) %>%
-      mutate(synonyms = ifelse(count, synonyms, as.character(NA))) %>%
-      select(-count)
+      mutate(synonyms = ifelse(.data$count, .data$synonyms, as.character(NA))) %>%
+      select(-"count")
   }
 
   find_redirections = function(disorder_node){
@@ -199,7 +203,7 @@ process_nomenclature = function(nomenclature_data_raw){
         to = sapply(disorder_node$DisorderDisorderAssociationList, find_target) %>% unname() %>% unlist(),
         redir_type = sapply(disorder_node$DisorderDisorderAssociationList, \(x) attr(x$DisorderDisorderAssociationType, 'id')) %>% unname() %>% unique()
       ) %>%
-        filter(!is.na(to))
+        filter(!is.na(.data$to))
       return(df_redirections)
     }
   }
