@@ -13,7 +13,7 @@ horizontal_sizes(graph, df_y, root_node = NULL)
 
 \item{root_node}{\code{root_node} is the reference to calculate the X coordinates of
 its children. It is a dataframe with a name and a relative_position columns. If NULL,
-it appplies the function recursively on each root of the graph.}
+it applies the function recursively on each root of the graph.}
 }
 \description{
 Compute how large should be the graph at each depth

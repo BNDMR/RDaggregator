@@ -42,7 +42,7 @@ library(RDaggregator)
 
 
 ### Check options
-As Orphanet publishes its data on a regular basis and in various language versions, you should first check if options are corrrectly set: 
+As Orphanet publishes its data on a regular basis and in various language versions, you should first check if options are correctly set: 
 ```{r options, eval=F}
 RDaggregator_options()
 ```
@@ -78,7 +78,7 @@ get_type(orpha_code)
 
 ## Operations on classification
 ### Analyze genealogy
-`RDaggregator` and `igraph` provide usefool functions to analyze the Orphanet classification system.
+`RDaggregator` and `igraph` provide useful functions to analyze the Orphanet classification system.
 
 #### Parents, children, siblings
 ```{r direct_relationships}

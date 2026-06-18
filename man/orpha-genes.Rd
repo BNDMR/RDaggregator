@@ -29,7 +29,7 @@ Set the \code{.by} argument properly to apply the right set of genes on each ORP
 
 \item{mode}{Character constant, whether the given genes are \code{"symbol"} or \code{"HGNC"} codes.}
 
-\item{.by}{Optionnaly, the set of mutated genes. The default is to consider each row as independent.
+\item{.by}{Optionally, the set of mutated genes. The default is to consider each row as independent.
 Set it to NULL or a constant value to apply the full set of \code{genes} to each element of \code{orpha_codes}.
 A warning will be raised if any of the considered sets contains more than 10 elements.}
 }

@@ -5,7 +5,7 @@
 #'
 #' Options are useful to roll back to older versions or to switch between languages for display.
 #'
-#' - `"RDaggregator_dict"` refers to the dictionary used to interprete Orphanet concepts ids.
+#' - `"RDaggregator_dict"` refers to the dictionary used for the interpretation of Orphanet concepts ids.
 #'
 #' - `"RDaggregator_nomenclature"` refers to a nomenclature pack version (extraction date and used language).
 #'

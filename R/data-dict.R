@@ -43,7 +43,7 @@ save_dict = function(dict_data, version){
 #' @description
 #' `r lifecycle::badge('experimental')`
 #'
-#' A dictionary is used to interprete Orphanet concepts, given as ids.
+#' A dictionary is used for the interpretation of Orphanet concepts, given as ids.
 #' Copy the dictionary template then add it to the package after modification.
 #'
 #' Once added, the dictionary will appear among the available options
@@ -63,7 +63,7 @@ copy_dict_template = function(dest_path='.'){
 }
 
 #' @param filepath The location of the _.csv_ file containing the labels in another language.
-#' A template of such a dicitonary can be saved using `copy_dict_template`.
+#' A template of such a dictionary can be saved using `copy_dict_template`.
 #' @param default If `TRUE`, set the added dictionary as default.
 #' @param destdir The destination directory, in which the processed data will be saved.
 #'

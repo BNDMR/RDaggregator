@@ -11,7 +11,7 @@ Interface to list and set RDaggregator-related options.
 
 Options are useful to roll back to older versions or to switch between languages for display.
 \itemize{
-\item \code{"RDaggregator_dict"} refers to the dictionary used to interprete Orphanet concepts ids.
+\item \code{"RDaggregator_dict"} refers to the dictionary used for the interpretation of Orphanet concepts ids.
 \item \code{"RDaggregator_nomenclature"} refers to a nomenclature pack version (extraction date and used language).
 \item \code{"RDaggregator_gene_file"} refers to the version of the file used to associated genes to ORPHAcodes.
 }

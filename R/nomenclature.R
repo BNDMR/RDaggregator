@@ -56,7 +56,7 @@ load_nomenclature = function(){
 #'
 #' @details
 #' The label is the clinical entity name and is returned by `get_label`.
-#' As multiple synonyms can be associated to a clinical entity, this function only returns the preferrential labels.
+#' As multiple synonyms can be associated to a clinical entity, this function only returns the preferential labels.
 #' To get all synonyms instead, use `get_synonyms`. Besides, if the displayed language does not meet your needs,
 #' you should consider changing options via [RDaggregator_options()] or adding a new nomenclature pack using [add_nomenclature_pack()].
 #'

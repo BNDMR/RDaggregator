@@ -7,7 +7,7 @@
 minimize_graph(graph, vs)
 }
 \arguments{
-\item{graph}{The graph to minmize}
+\item{graph}{The graph to minimize}
 
 \item{vs}{The vertices to keep}
 }

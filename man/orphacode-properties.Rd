@@ -30,7 +30,7 @@ Get specific properties of given ORPHAcodes.
 }
 \details{
 The label is the clinical entity name and is returned by \code{get_label}.
-As multiple synonyms can be associated to a clinical entity, this function only returns the preferrential labels.
+As multiple synonyms can be associated to a clinical entity, this function only returns the preferential labels.
 To get all synonyms instead, use \code{get_synonyms}. Besides, if the displayed language does not meet your needs,
 you should consider changing options via \code{\link[=RDaggregator_options]{RDaggregator_options()}} or adding a new nomenclature pack using \code{\link[=add_nomenclature_pack]{add_nomenclature_pack()}}.
 

@@ -14,7 +14,7 @@ find_leaves(graph)
 \item{graph}{An igraph object.}
 }
 \value{
-The extrem nodes of a graph.
+The extreme nodes of a graph.
 }
 \description{
 Orphanet classification system can be depicted by oriented graphs as it is a wide list of

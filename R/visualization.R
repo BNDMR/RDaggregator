@@ -239,7 +239,7 @@ horizontal_positions = function(graph, df_y, h_size, root_node=NULL)
 #' @param df_y Y coordinates which are useful to simplify the graph.
 #' @param root_node `root_node` is the reference to calculate the X coordinates of
 #' its children. It is a dataframe with a name and a relative_position columns. If NULL,
-#' it appplies the function recursively on each root of the graph.
+#' it applies the function recursively on each root of the graph.
 #'
 #' @import magrittr
 #' @importFrom rlang .data
@@ -475,7 +475,7 @@ path2edges = function(path){
 #' Similar to an induced subgraph, but creates shortcut edges between vertices
 #' that were primarily connected.
 #'
-#' @param graph The graph to minmize
+#' @param graph The graph to minimize
 #' @param vs The vertices to keep
 #'
 #' @return The minimized graph, which is different in general from an induced

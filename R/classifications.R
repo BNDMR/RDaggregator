@@ -685,7 +685,7 @@ add_superNode = function(graph)
 #'
 #' @importFrom igraph degree
 #'
-#' @return The extrem nodes of a graph.
+#' @return The extreme nodes of a graph.
 #'
 #' @examples
 #' graph = get_ancestors('303', output='graph')

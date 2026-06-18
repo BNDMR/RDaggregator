@@ -23,7 +23,8 @@ Suggests:
     testthat (>= 3.0.0),
     tictoc,
     vdiffr,
-    kableExtra
+    kableExtra,
+    spelling
 VignetteBuilder: knitr
 License: GPL (>= 3) + file LICENSE
 Depends: 
@@ -33,3 +34,4 @@ LazyData: true
 URL: https://bndmr.github.io/RDaggregator/, https://github.com/BNDMR/RDaggregator
 BugReports: https://github.com/BNDMR/RDaggregator/issues
 Config/roxygen2/version: 8.0.0
+Language: en-US

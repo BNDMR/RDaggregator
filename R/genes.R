@@ -90,7 +90,7 @@ load_genes_synonyms = function(){
 #' it should be length-compatible with `orpha_code`, so that each list element corresponds to one `orpha_codes` entry.
 #' Set the `.by` argument properly to apply the right set of genes on each ORPHAcode.
 #' @param mode Character constant, whether the given genes are `"symbol"` or `"HGNC"` codes.
-#' @param .by Optionnaly, the set of mutated genes. The default is to consider each row as independent.
+#' @param .by Optionally, the set of mutated genes. The default is to consider each row as independent.
 #' Set it to NULL or a constant value to apply the full set of `genes` to each element of `orpha_codes`.
 #' A warning will be raised if any of the considered sets contains more than 10 elements.
 #'

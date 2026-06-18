@@ -18,7 +18,7 @@ add_dictionary(
 \item{dest_path}{The destination path where the dictionary template should be copied.}
 
 \item{filepath}{The location of the \emph{.csv} file containing the labels in another language.
-A template of such a dicitonary can be saved using \code{copy_dict_template}.}
+A template of such a dictionary can be saved using \code{copy_dict_template}.}
 
 \item{default}{If \code{TRUE}, set the added dictionary as default.}
 
@@ -27,7 +27,7 @@ A template of such a dicitonary can be saved using \code{copy_dict_template}.}
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
-A dictionary is used to interprete Orphanet concepts, given as ids.
+A dictionary is used for the interpretation of Orphanet concepts, given as ids.
 Copy the dictionary template then add it to the package after modification.
 
 Once added, the dictionary will appear among the available options
