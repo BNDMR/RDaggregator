@@ -5,6 +5,9 @@
 - **Remy Dumas**. Author, maintainer.
   [](https://orcid.org/0009-0005-8919-9857)
 
+- **Banque Nationale de Données Maladies Rares, BNDMR**. Copyright
+  holder, funder.
+
 ## Citation
 
 Source:
