@@ -4,7 +4,7 @@ Version: 1.0.3
 Authors@R: 
     c(person("Remy", "Dumas", , "remy.dumas84@gmail.com", role = c("aut", "cre"),
         comment = c(ORCID = "0009-0005-8919-9857")),
-      person("Banque Nationale de Données Maladies Rares, BNDMR", role = c("cph", "fnd"))
+      person("Banque Nationale de Données Maladies Rares, BNDMR", role = c("cph", "fnd")))
 Description: Routines to better comprehend and analyze data using the Orphanet system. It particularly helps aggregating on multiple levels at the same time.
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
