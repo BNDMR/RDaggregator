@@ -37,10 +37,12 @@ A matrix with the right indentations applied on the requested columns
 ## Examples
 
 ``` r
-library(dplyr)
-orpha_codes = get_descendants('307711', output='codes_only')
+if (FALSE) { # \dontrun{
+  library(dplyr)
+  orpha_codes = get_descendants('307711', output='codes_only')
 
-df = orpha_df(data.frame(orpha_code=orpha_codes), orpha_code_col='orpha_code') %>%
-  left_join(load_nomenclature(), by='orpha_code')
-df_indented = apply_orpha_indent(df, indented_cols='label')
+  df = orpha_df(data.frame(orpha_code=orpha_codes), orpha_code_col='orpha_code') %>%
+    left_join(load_nomenclature(), by='orpha_code')
+  df_indented = apply_orpha_indent(df, indented_cols='label')
+} # }
 ```

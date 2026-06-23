@@ -38,7 +38,7 @@ add_associated_genes(
 
 Orphanet publishes genes data on a 6-months basis, and is deployed in
 english only. The different file versions are available
-[here](https://www.orphadata.com/genes/). They must be downloaded
+[here](https://sciences.orphadata.com/genes/). They must be downloaded
 locally to be added to `RDaggregator`.
 
 As a gene mutation may have various effects on individuals health, this

@@ -38,7 +38,7 @@ add_nomenclature_pack(
 Orphanet publishes the nomenclature pack on a yearly basis, and is
 deployed in different language versions. The different nomenclature pack
 versions are available
-[here](https://www.orphadata.com/pack-nomenclature/). They must be
+[here](https://www.orphacode.org/pack-nomenclature/). They must be
 downloaded locally and uncompressed to be added to `RDaggregator`.
 
 The uncompressed Orphanet nomenclature pack contains a set of *.xml* and
