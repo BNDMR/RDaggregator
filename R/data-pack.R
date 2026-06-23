@@ -46,7 +46,7 @@ save_pack = function(pack_data, version){
 #'
 #' @details
 #' Orphanet publishes the nomenclature pack on a yearly basis, and is deployed in different language versions.
-#' The different nomenclature pack versions are available \href{https://www.orphadata.com/pack-nomenclature/}{here}.
+#' The different nomenclature pack versions are available \href{https://www.orphacode.org/pack-nomenclature/}{here}.
 #' They must be downloaded locally and uncompressed to be added to `RDaggregator`.
 #'
 #' The uncompressed Orphanet nomenclature pack contains a set of *.xml* and *.xlsx* files for coding, including the nomenclature file

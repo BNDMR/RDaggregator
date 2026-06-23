@@ -47,7 +47,7 @@ save_genes = function(genes_data, version){
 #'
 #' @details
 #' Orphanet publishes genes data on a 6-months basis, and is deployed in english only.
-#' The different file versions are available \href{https://www.orphadata.com/genes/}{here}.
+#' The different file versions are available \href{https://sciences.orphadata.com/genes/}{here}.
 #' They must be downloaded locally to be added to `RDaggregator`.
 #'
 #' As a gene mutation may have various effects on individuals health, this file indicates how genes and

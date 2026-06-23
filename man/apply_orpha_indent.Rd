@@ -23,10 +23,13 @@ this function apply indentation, which means the associated ORPHAcode is one lev
 ORPHAcodes may appear in multiple rows because they can be child of several parents.
 }
 \examples{
-library(dplyr)
-orpha_codes = get_descendants('307711', output='codes_only')
+\dontrun{
+  library(dplyr)
+  orpha_codes = get_descendants('307711', output='codes_only')
 
-df = orpha_df(data.frame(orpha_code=orpha_codes), orpha_code_col='orpha_code') \%>\%
-  left_join(load_nomenclature(), by='orpha_code')
-df_indented = apply_orpha_indent(df, indented_cols='label')
+  df = orpha_df(data.frame(orpha_code=orpha_codes), orpha_code_col='orpha_code') \%>\%
+    left_join(load_nomenclature(), by='orpha_code')
+  df_indented = apply_orpha_indent(df, indented_cols='label')
+}
+
 }

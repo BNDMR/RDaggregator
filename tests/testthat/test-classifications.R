@@ -63,6 +63,7 @@ test_that('advanced genealogy', {
 })
 
 test_that('classification levels', {
+  testthat::skip_on_cran()
   library(tictoc)
 
   # Subtypes to disorder

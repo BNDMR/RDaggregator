@@ -9,17 +9,17 @@ test_that("indentation", {
   expect_s3_class(df_indent, 'orpha_df')
 })
 
-
+library(vdiffr)
 test_that("plots", {
   G = get_descendants(c(303,304,305), output='graph')
 
   expect_s3_class(G, 'igraph')
 
   p1 = plot(G)
-  vdiffr::expect_doppelganger("default plot", p1)
+  expect_doppelganger("default plot", p1)
 
   p2 = plot(G, layout=layout_tree)
-  vdiffr::expect_doppelganger("layout_tree plot", p2)
+  expect_doppelganger("layout_tree plot", p2)
 
   ip1 = interactive_plot(G)
   expect_gt(nrow(ip1$x$nodes), 30)
@@ -44,7 +44,7 @@ test_that("coloration", {
   expect_true(any(!is.na(vertex_attrs$color)))
 
   pc = plot(Gc)
-  vdiffr::expect_doppelganger("colored plot", pc)
+  expect_doppelganger("colored plot", pc)
 
 
   ipc = interactive_plot(Gc)

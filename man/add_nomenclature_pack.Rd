@@ -25,7 +25,7 @@ This function analyzes the nomenclature pack files and saves them internally in 
 }
 \details{
 Orphanet publishes the nomenclature pack on a yearly basis, and is deployed in different language versions.
-The different nomenclature pack versions are available \href{https://www.orphadata.com/pack-nomenclature/}{here}.
+The different nomenclature pack versions are available \href{https://www.orphacode.org/pack-nomenclature/}{here}.
 They must be downloaded locally and uncompressed to be added to \code{RDaggregator}.
 
 The uncompressed Orphanet nomenclature pack contains a set of \emph{.xml} and \emph{.xlsx} files for coding, including the nomenclature file

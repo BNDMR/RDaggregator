@@ -376,12 +376,15 @@ interactive_plot = function(graph, layout_tree = FALSE)
 #' @export
 #'
 #' @examples
-#' library(dplyr)
-#' orpha_codes = get_descendants('307711', output='codes_only')
+#' \dontrun{
+#'   library(dplyr)
+#'   orpha_codes = get_descendants('307711', output='codes_only')
 #'
-#' df = orpha_df(data.frame(orpha_code=orpha_codes), orpha_code_col='orpha_code') %>%
-#'   left_join(load_nomenclature(), by='orpha_code')
-#' df_indented = apply_orpha_indent(df, indented_cols='label')
+#'   df = orpha_df(data.frame(orpha_code=orpha_codes), orpha_code_col='orpha_code') %>%
+#'     left_join(load_nomenclature(), by='orpha_code')
+#'   df_indented = apply_orpha_indent(df, indented_cols='label')
+#' }
+#'
 apply_orpha_indent = function(df, indented_cols=NULL, prefix='indent')
 {
   if(!'orpha_df' %in% class(df))
